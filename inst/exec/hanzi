@@ -1,0 +1,10 @@
+#!/usr/bin/env Rscript
+
+# Load hanziR package
+suppressPackageStartupMessages({
+  library(hanziR)
+})
+
+# Run CLI
+hanzi_cli(commandArgs(trailingOnly = TRUE))
+

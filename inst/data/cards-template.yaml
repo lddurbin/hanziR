@@ -1,0 +1,59 @@
+version: "1.0"
+created: "2025-10-14"
+cards:
+  - char: "好"
+    pinyin: "hǎo"
+    tone: 3
+    tone_shape: "dip"
+    tone_pattern: "\\/"
+    initial: "h"
+    final: "ao"
+    components:
+      - "女"
+      - "子"
+    meaning: "good, well"
+    example: "你好 (nǐ hǎo) - hello"
+    tags:
+      - "HSK1"
+      - "common"
+      - "greeting"
+    notes: "One of the most common characters"
+    added: "2025-10-14T10:00:00Z"
+    
+  - char: "中"
+    pinyin: "zhōng"
+    tone: 1
+    tone_shape: "flat"
+    tone_pattern: "---"
+    initial: "zh"
+    final: "ong"
+    components:
+      - "口"
+      - "|"
+    meaning: "middle, center, China"
+    example: "中国 (Zhōngguó) - China"
+    tags:
+      - "HSK1"
+      - "common"
+    notes: ""
+    added: "2025-10-14T10:01:00Z"
+    
+  - char: "你"
+    pinyin: "nǐ"
+    tone: 3
+    tone_shape: "dip"
+    tone_pattern: "\\/"
+    initial: "n"
+    final: "i"
+    components:
+      - "亻"
+      - "尔"
+    meaning: "you"
+    example: "你好 (nǐ hǎo) - hello"
+    tags:
+      - "HSK1"
+      - "common"
+      - "pronoun"
+    notes: "Second person singular pronoun"
+    added: "2025-10-14T10:02:00Z"
+

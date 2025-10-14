@@ -1,0 +1,28 @@
+Package: hanziR
+Title: Terminal-Based Hanzi Learning Card Manager
+Version: 0.1.0
+Authors@R: 
+    person("Lee", "Durbin", , "lee@example.com", role = c("aut", "cre"))
+Description: A minimal R package providing a console app for managing 
+    Chinese character (Hanzi) learning cards with accessible tone cues 
+    and multiple export formats. Features include YAML-based storage,
+    full-text search, filtering, and export to Markdown, CSV, and Anki formats.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.1.0)
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports:
+    yaml,
+    cli,
+    glue,
+    tibble,
+    dplyr,
+    purrr,
+    stringr,
+    readr,
+    rlang
+Suggests: 
+    testthat (>= 3.0.0),
+    withr
+Config/testthat/edition: 3
