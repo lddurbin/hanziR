@@ -8,6 +8,8 @@ Description: A minimal R package providing a console app for managing
     and multiple export formats. Features include YAML-based storage,
     full-text search, filtering, and export to Markdown, CSV, and Anki formats.
 License: MIT + file LICENSE
+URL: https://github.com/lddurbin/hanziR
+BugReports: https://github.com/lddurbin/hanziR/issues
 Encoding: UTF-8
 Depends: R (>= 4.1.0)
 Roxygen: list(markdown = TRUE)

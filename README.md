@@ -20,11 +20,11 @@
 ## Installation
 
 ```r
-# Install development version from source
-devtools::install()
+# Install from GitHub
+devtools::install_github("lddurbin/hanziR")
 
-# Or install from GitHub (when available)
-# devtools::install_github("username/hanziR")
+# Or install development version from source
+devtools::install()
 ```
 
 ### Making the CLI Available
