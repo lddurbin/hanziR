@@ -95,7 +95,7 @@ show_help <- function() {
   cli::cli_code("hanzi init")
   cli::cli_code("hanzi add")
   cli::cli_code("hanzi list")
-  cli::cli_code("hanzi show 好")
+  cli::cli_code("hanzi show <char>")
   cli::cli_code("hanzi search greeting")
   cli::cli_code("hanzi filter --tag HSK1 --tone 3")
   cli::cli_code("hanzi export md --out docs/")

@@ -58,5 +58,5 @@ out/
 
 # Local cards.yaml (for testing)
 cards.yaml
-inst/data/cards.yaml
+inst/extdata/cards.yaml
 

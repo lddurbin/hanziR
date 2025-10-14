@@ -101,12 +101,16 @@ format_tone <- function(tone, include_color = TRUE) {
 #' @return Tone number (1-5) or NA
 #' @keywords internal
 parse_tone_from_pinyin <- function(pinyin) {
-  # Tone marks on different vowels
+  # Tone marks on different vowels (using Unicode escapes)
   tone_map <- list(
-    "1" = c("ā", "ē", "ī", "ō", "ū", "ǖ", "Ā", "Ē", "Ī", "Ō", "Ū", "Ǖ"),
-    "2" = c("á", "é", "í", "ó", "ú", "ǘ", "Á", "É", "Í", "Ó", "Ú", "Ǘ"),
-    "3" = c("ǎ", "ě", "ǐ", "ǒ", "ǔ", "ǚ", "Ǎ", "Ě", "Ǐ", "Ǒ", "Ǔ", "Ǚ"),
-    "4" = c("à", "è", "ì", "ò", "ù", "ǜ", "À", "È", "Ì", "Ò", "Ù", "Ǜ")
+    "1" = c("\u0101", "\u0113", "\u012b", "\u014d", "\u016b", "\u01d6",
+            "\u0100", "\u0112", "\u012a", "\u014c", "\u016a", "\u01d5"),
+    "2" = c("\u00e1", "\u00e9", "\u00ed", "\u00f3", "\u00fa", "\u01d8",
+            "\u00c1", "\u00c9", "\u00cd", "\u00d3", "\u00da", "\u01d7"),
+    "3" = c("\u01ce", "\u011b", "\u01d0", "\u01d2", "\u01d4", "\u01da",
+            "\u01cd", "\u011a", "\u01cf", "\u01d1", "\u01d3", "\u01d9"),
+    "4" = c("\u00e0", "\u00e8", "\u00ec", "\u00f2", "\u00f9", "\u01dc",
+            "\u00c0", "\u00c8", "\u00cc", "\u00d2", "\u00d9", "\u01db")
   )
 
   for (tone in names(tone_map)) {

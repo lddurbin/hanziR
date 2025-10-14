@@ -10,4 +10,6 @@
 ^\.gitignore$
 ^PROJECT_PLAN\.md$
 ^cards\.yaml$
+^\.lintr$
+^test_export$
 

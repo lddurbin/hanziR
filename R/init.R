@@ -31,7 +31,7 @@ hanzi_init <- function(path = NULL, force = FALSE) {
   }
 
   # Copy template or create minimal structure
-  template_path <- system.file("data", "cards-template.yaml", package = "hanziR")
+  template_path <- system.file("extdata", "cards-template.yaml", package = "hanziR")
 
   if (file.exists(template_path)) {
     file.copy(template_path, path, overwrite = TRUE)
@@ -42,16 +42,16 @@ hanzi_init <- function(path = NULL, force = FALSE) {
       created = format_date(),
       cards = list(
         list(
-          char = "好",
-          pinyin = "hǎo",
+          char = "\u597d",
+          pinyin = "h\u01ceo",
           tone = 3L,
           tone_shape = "dip",
           tone_pattern = "\\/",
           initial = "h",
           final = "ao",
-          components = list("女", "子"),
+          components = list("\u5973", "\u5b50"),
           meaning = "good, well",
-          example = "你好 (nǐ hǎo) - hello",
+          example = "\u4f60\u597d (n\u01d0 h\u01ceo) - hello",
           tags = list("HSK1", "common", "greeting"),
           notes = "One of the most common characters",
           added = format_timestamp()
@@ -67,7 +67,7 @@ hanzi_init <- function(path = NULL, force = FALSE) {
   cli::cli_ul(c(
     "Add a new card: {.code hanzi add}",
     "List all cards: {.code hanzi list}",
-    "Show a card: {.code hanzi show 好}",
+    "Show a card: {.code hanzi show <char>}",
     "Get help: {.code hanzi --help}"
   ))
 
