@@ -10,26 +10,26 @@ find_cards_file <- function(must_exist = TRUE) {
   if (file.exists("cards.yaml")) {
     return(normalizePath("cards.yaml"))
   }
-  
+
   # Check inst/data/
   inst_path <- "inst/data/cards.yaml"
   if (file.exists(inst_path)) {
     return(normalizePath(inst_path))
   }
-  
+
   # Check installed package location
   pkg_path <- system.file("data", "cards.yaml", package = "hanziR")
   if (pkg_path != "") {
     return(pkg_path)
   }
-  
+
   if (must_exist) {
     cli::cli_abort(c(
       "Could not find {.file cards.yaml}",
       "i" = "Run {.code hanzi init} to create one"
     ))
   }
-  
+
   NULL
 }
 
@@ -74,13 +74,13 @@ format_date <- function(time = Sys.time()) {
 #' @keywords internal
 is_hanzi <- function(char) {
   if (is.na(char) || nchar(char) == 0) return(FALSE)
-  
+
   # Get unicode codepoint
   code <- utf8ToInt(char)[1]
-  
+
   # CJK Unified Ideographs: U+4E00 to U+9FFF
   # CJK Extension A: U+3400 to U+4DBF
-  (code >= 0x4E00 && code <= 0x9FFF) || 
+  (code >= 0x4E00 && code <= 0x9FFF) ||
     (code >= 0x3400 && code <= 0x4DBF)
 }
 
@@ -98,4 +98,3 @@ truncate_text <- function(text, max_len = 50, suffix = "...") {
     text
   )
 }
-

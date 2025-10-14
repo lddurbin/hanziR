@@ -10,12 +10,12 @@
 #' get_tone_shape(3)  # "dip"
 get_tone_shape <- function(tone) {
   shapes <- c("flat", "rise", "dip", "fall", "neutral")
-  
+
   if (is.na(tone) || !tone %in% 1:5) {
     cli::cli_warn("Invalid tone: {tone}. Using neutral.")
     return("neutral")
   }
-  
+
   shapes[tone]
 }
 
@@ -31,11 +31,11 @@ get_tone_shape <- function(tone) {
 #' get_tone_pattern(4)  # "\\"
 get_tone_pattern <- function(tone) {
   patterns <- c("---", "/", "\\/", "\\", ".")
-  
+
   if (is.na(tone) || !tone %in% 1:5) {
     return(".")
   }
-  
+
   patterns[tone]
 }
 
@@ -48,11 +48,11 @@ get_tone_pattern <- function(tone) {
 #' @keywords internal
 get_tone_color_name <- function(tone) {
   colors <- c("red", "orange", "green", "blue", "gray")
-  
+
   if (is.na(tone) || !tone %in% 1:5) {
     return("gray")
   }
-  
+
   colors[tone]
 }
 
@@ -70,10 +70,10 @@ format_tone <- function(tone, include_color = TRUE) {
   if (is.na(tone) || !tone %in% 1:5) {
     return("Tone ? (unknown)")
   }
-  
+
   shape <- get_tone_shape(tone)
   pattern <- get_tone_pattern(tone)
-  
+
   if (include_color && requireNamespace("cli", quietly = TRUE)) {
     # Use cli colors but also include text labels
     color_name <- get_tone_color_name(tone)
@@ -86,7 +86,7 @@ format_tone <- function(tone, include_color = TRUE) {
       "gray" = cli::col_grey,
       identity
     )
-    
+
     color_fn(glue::glue("Tone {tone} ({shape} {pattern})"))
   } else {
     glue::glue("Tone {tone} ({shape} {pattern})")
@@ -108,19 +108,19 @@ parse_tone_from_pinyin <- function(pinyin) {
     "3" = c("ǎ", "ě", "ǐ", "ǒ", "ǔ", "ǚ", "Ǎ", "Ě", "Ǐ", "Ǒ", "Ǔ", "Ǚ"),
     "4" = c("à", "è", "ì", "ò", "ù", "ǜ", "À", "È", "Ì", "Ò", "Ù", "Ǜ")
   )
-  
+
   for (tone in names(tone_map)) {
     if (any(stringr::str_detect(pinyin, stringr::fixed(tone_map[[tone]])))) {
       return(as.integer(tone))
     }
   }
-  
+
   # Check for numeric tone at end (e.g., "hao3")
   if (stringr::str_detect(pinyin, "[1-5]$")) {
     tone <- stringr::str_extract(pinyin, "[1-5]$")
     return(as.integer(tone))
   }
-  
+
   # Default to tone 5 (neutral) if no tone found
   5L
 }
@@ -133,4 +133,3 @@ parse_tone_from_pinyin <- function(pinyin) {
 validate_tone <- function(tone) {
   !is.na(tone) && is.numeric(tone) && tone %in% 1:5
 }
-

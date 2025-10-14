@@ -10,11 +10,11 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
     show_help()
     return(invisible(NULL))
   }
-  
+
   command <- args[1]
   remaining_args <- if (length(args) > 1) args[-1] else character()
-  
-  result <- tryCatch({
+
+  tryCatch({
     switch(
       command,
       "init" = hanzi_init(),
@@ -56,7 +56,7 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
     cli::cli_alert_danger("Error: {conditionMessage(e)}")
     quit(status = 1)
   })
-  
+
   invisible(NULL)
 }
 
@@ -111,15 +111,15 @@ show_help <- function() {
 #' @keywords internal
 parse_option <- function(args, option, default = NULL) {
   idx <- which(args == option)
-  
+
   if (length(idx) == 0) {
     return(default)
   }
-  
+
   if (idx[1] == length(args)) {
     cli::cli_abort("Option {.code {option}} requires a value")
   }
-  
+
   args[idx[1] + 1]
 }
 
@@ -131,18 +131,17 @@ parse_option <- function(args, option, default = NULL) {
 #' @keywords internal
 parse_all_options <- function(args, option) {
   idx <- which(args == option)
-  
+
   if (length(idx) == 0) {
     return(character())
   }
-  
+
   values <- character()
   for (i in idx) {
     if (i < length(args)) {
       values <- c(values, args[i + 1])
     }
   }
-  
+
   values
 }
-

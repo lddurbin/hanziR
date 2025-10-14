@@ -7,21 +7,21 @@ read_cards <- function(path = NULL) {
   if (is.null(path)) {
     path <- find_cards_file(must_exist = TRUE)
   }
-  
+
   if (!file.exists(path)) {
     cli::cli_abort("File not found: {.file {path}}")
   }
-  
+
   tryCatch({
     # Read YAML content as UTF-8 text
     yaml_text <- readLines(path, encoding = "UTF-8", warn = FALSE)
     data <- yaml::yaml.load(paste(yaml_text, collapse = "\n"))
-    
+
     # Validate structure
     if (is.null(data$cards)) {
       cli::cli_abort("Invalid cards.yaml: missing 'cards' field")
     }
-    
+
     data
   }, error = function(e) {
     cli::cli_abort(c(
@@ -44,13 +44,13 @@ write_cards <- function(data, path = NULL) {
       path <- get_init_path()
     }
   }
-  
+
   # Ensure directory exists
   dir_path <- dirname(path)
   if (!dir.exists(dir_path)) {
     dir.create(dir_path, recursive = TRUE)
   }
-  
+
   tryCatch({
     # Convert to YAML string and write with UTF-8 encoding
     yaml_text <- yaml::as.yaml(data)
@@ -71,7 +71,7 @@ write_cards <- function(data, path = NULL) {
 #' @export
 get_cards_tibble <- function(path = NULL) {
   data <- read_cards(path)
-  
+
   if (length(data$cards) == 0) {
     return(tibble::tibble(
       char = character(),
@@ -89,7 +89,7 @@ get_cards_tibble <- function(path = NULL) {
       added = character()
     ))
   }
-  
+
   # Convert list of cards to tibble
   cards_df <- data$cards |>
     purrr::map_dfr(function(card) {
@@ -109,7 +109,7 @@ get_cards_tibble <- function(path = NULL) {
         added = card$added %||% NA_character_
       )
     })
-  
+
   cards_df
 }
 
@@ -135,16 +135,16 @@ add_card_to_data <- function(data, card) {
   # Ensure card has required fields
   required <- c("char", "pinyin", "meaning")
   missing <- setdiff(required, names(card))
-  
+
   if (length(missing) > 0) {
     cli::cli_abort("Card missing required fields: {.field {missing}}")
   }
-  
+
   # Add timestamp if not present
   if (is.null(card$added)) {
     card$added <- format_timestamp()
   }
-  
+
   # Auto-generate tone fields if missing but tone is present
   if (!is.null(card$tone) && is.null(card$tone_shape)) {
     card$tone_shape <- get_tone_shape(card$tone)
@@ -152,10 +152,10 @@ add_card_to_data <- function(data, card) {
   if (!is.null(card$tone) && is.null(card$tone_pattern)) {
     card$tone_pattern <- get_tone_pattern(card$tone)
   }
-  
+
   # Append card
   data$cards <- c(data$cards, list(card))
-  
+
   data
 }
 
@@ -163,4 +163,3 @@ add_card_to_data <- function(data, card) {
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
 }
-

@@ -11,28 +11,28 @@ hanzi_init <- function(path = NULL, force = FALSE) {
   if (is.null(path)) {
     path <- get_init_path()
   }
-  
+
   # Check if file already exists
   if (file.exists(path) && !force) {
     cli::cli_alert_info("File {.file {path}} already exists")
     response <- readline("Overwrite? (y/N): ")
-    
+
     if (!tolower(trimws(response)) %in% c("y", "yes")) {
       cli::cli_alert_info("Cancelled. No changes made.")
       return(invisible(NULL))
     }
   }
-  
+
   # Ensure directory exists
   dir_path <- dirname(path)
   if (!dir.exists(dir_path) && dir_path != ".") {
     dir.create(dir_path, recursive = TRUE)
     cli::cli_alert_success("Created directory {.file {dir_path}}")
   }
-  
+
   # Copy template or create minimal structure
   template_path <- system.file("data", "cards-template.yaml", package = "hanziR")
-  
+
   if (file.exists(template_path)) {
     file.copy(template_path, path, overwrite = TRUE)
   } else {
@@ -58,10 +58,10 @@ hanzi_init <- function(path = NULL, force = FALSE) {
         )
       )
     )
-    
+
     write_cards(data, path)
   }
-  
+
   cli::cli_alert_success("Created {.file {path}}")
   cli::cli_h2("Next steps:")
   cli::cli_ul(c(
@@ -70,7 +70,6 @@ hanzi_init <- function(path = NULL, force = FALSE) {
     "Show a card: {.code hanzi show 好}",
     "Get help: {.code hanzi --help}"
   ))
-  
+
   invisible(path)
 }
-
