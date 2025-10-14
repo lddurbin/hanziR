@@ -41,6 +41,11 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
         out_dir <- parse_option(remaining_args, "--out", default = "export")
         hanzi_export(format, out_dir)
       },
+      "config" = {
+        subcommand <- if (length(remaining_args) > 0) remaining_args[1] else "show"
+        sub_args <- if (length(remaining_args) > 1) remaining_args[-1] else character()
+        do.call(hanzi_config, c(list(subcommand = subcommand), as.list(sub_args)))
+      },
       "stats" = hanzi_stats(),
       "validate" = hanzi_validate(),
       "--help" = show_help(),
@@ -78,8 +83,17 @@ show_help <- function() {
     "search <query...>" = "Search cards (full-text)",
     "filter [options]" = "Filter cards by criteria",
     "export <format> [--out <dir>]" = "Export cards (md|csv|tsv)",
+    "config <subcommand>" = "Manage mnemonic system config",
     "stats" = "Show collection statistics",
     "validate" = "Validate cards.yaml file"
+  ))
+  cli::cli_text("")
+  cli::cli_h2("Config Subcommands:")
+  cli::cli_dl(c(
+    "config init" = "Initialize config.yaml with template",
+    "config show [section]" = "Show configuration (actors|sets|rooms|props)",
+    "config validate" = "Validate configuration",
+    "config set <type> <key> <value>" = "Set config value (actor|set|room|prop)"
   ))
   cli::cli_text("")
   cli::cli_h2("Filter Options:")
