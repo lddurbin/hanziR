@@ -28,4 +28,3 @@ test_that("format_tone creates accessible output", {
   expect_match(result, "dip")
   expect_match(result, "\\\\/")
 })
-

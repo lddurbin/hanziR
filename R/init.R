@@ -67,11 +67,11 @@ hanzi_init <- function(path = NULL, force = FALSE) {
 
   # Initialize config.yaml in the same directory
   config_path <- file.path(dir_path, "config.yaml")
-  
+
   # Check if config already exists
   if (!file.exists(config_path) || force) {
     config_template_path <- system.file("extdata", "config-template.yaml", package = "hanziR")
-    
+
     if (file.exists(config_template_path)) {
       file.copy(config_template_path, config_path, overwrite = TRUE)
       cli::cli_alert_success("Created {.file {config_path}}")
@@ -93,7 +93,7 @@ hanzi_init <- function(path = NULL, force = FALSE) {
           props = list()
         )
       )
-      
+
       write_config(config_data, config_path)
       cli::cli_alert_success("Created {.file {config_path}}")
       cli::cli_alert_info("Note: Config file created with minimal structure. Consider adding actors and sets.")

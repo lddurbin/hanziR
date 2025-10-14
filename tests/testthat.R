@@ -10,4 +10,3 @@ library(testthat)
 library(hanziR)
 
 test_check("hanziR")
-

@@ -13,4 +13,3 @@ test_that("format_date returns YYYY-MM-DD format", {
   date <- format_date(as.POSIXct("2025-10-14 10:30:00", tz = "UTC"))
   expect_match(date, "\\d{4}-\\d{2}-\\d{2}")
 })
-

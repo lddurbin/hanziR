@@ -42,9 +42,10 @@ find_cards_file <- function(must_exist = TRUE) {
 get_init_path <- function() {
   # Prefer inst/data/ if it exists, otherwise current directory
   if (dir.exists("inst/data")) {
-    return("inst/data/cards.yaml")
+    "inst/data/cards.yaml"
+  } else {
+    "cards.yaml"
   }
-  return("cards.yaml")
 }
 
 #' Format a timestamp

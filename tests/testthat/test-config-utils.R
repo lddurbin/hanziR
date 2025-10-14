@@ -74,4 +74,3 @@ test_that("get_prop returns NULL for missing config", {
   # Skip if config doesn't exist
   skip_if_not(file.exists("config.yaml") || file.exists("inst/data/config.yaml"))
 })
-
