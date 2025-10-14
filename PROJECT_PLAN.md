@@ -27,9 +27,9 @@ hanziR/
 │   ├── yaml-utils.R           # YAML read/write
 │   └── tone-utils.R           # Accessible tone representations
 ├── inst/
-│   ├── data/
+│   ├── extdata/
 │   │   └── cards-template.yaml  # Template for new projects
-│   └── exec/
+│   └── bin/
 │       └── hanzi              # Executable script (Rscript wrapper)
 ├── man/                       # Documentation (auto-generated)
 ├── tests/
@@ -279,7 +279,7 @@ Mandarin has 5 tones. For accessibility (color blindness):
 
 ### Phase 6: CLI Integration (Day 5)
 1. Create main `cli.R` with argument parsing
-2. Create `inst/exec/hanzi` executable script
+2. Create `inst/bin/hanzi` executable script
 3. Test all commands end-to-end
 4. Handle edge cases and error messages
 
@@ -356,10 +356,10 @@ devtools::install_github("username/hanziR")
 ### Making CLI Available
 ```bash
 # Add to PATH in ~/.zshrc or ~/.bashrc
-export PATH="$PATH:$(Rscript -e 'cat(system.file("exec", package="hanziR"))')"
+export PATH="$PATH:$(Rscript -e 'cat(system.file("bin", package="hanziR"))')"
 
 # Or create symlink
-ln -s $(Rscript -e 'cat(system.file("exec", package="hanziR"))') /usr/local/bin/hanzi
+ln -s $(Rscript -e 'cat(system.file("bin", package="hanziR"))') /usr/local/bin/hanzi
 ```
 
 ### Usage Example
