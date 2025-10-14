@@ -2,7 +2,7 @@ Package: hanziR
 Title: Terminal-Based Hanzi Learning Card Manager
 Version: 0.1.0
 Authors@R: 
-    person("Lee", "Durbin", , "lee@example.com", role = c("aut", "cre"))
+    person("Lee", "Durbin", , "hello@leedurbin.co.nz", role = c("aut", "cre"))
 Description: A minimal R package providing a console app for managing 
     Chinese character (Hanzi) learning cards with accessible tone cues 
     and multiple export formats. Features include YAML-based storage,
