@@ -15,5 +15,5 @@ hanzi_init(path = NULL, force = FALSE)
 Invisible path to created file
 }
 \description{
-Creates a new cards.yaml file with example cards
+Creates a new cards.yaml file with example cards and config.yaml
 }

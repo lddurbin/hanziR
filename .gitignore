@@ -60,3 +60,6 @@ out/
 cards.yaml
 inst/extdata/cards.yaml
 
+# Planning document
+/HANZI_MOVIE_METHOD.md
+

@@ -1,6 +1,6 @@
 #' Initialize a new cards.yaml file
 #'
-#' Creates a new cards.yaml file with example cards
+#' Creates a new cards.yaml file with example cards and config.yaml
 #'
 #' @param path Path where cards.yaml should be created. If NULL, uses default location.
 #' @param force If TRUE, overwrite existing file without prompting
@@ -30,7 +30,7 @@ hanzi_init <- function(path = NULL, force = FALSE) {
     cli::cli_alert_success("Created directory {.file {dir_path}}")
   }
 
-  # Copy template or create minimal structure
+  # Copy cards template or create minimal structure
   template_path <- system.file("extdata", "cards-template.yaml", package = "hanziR")
 
   if (file.exists(template_path)) {
@@ -38,7 +38,7 @@ hanzi_init <- function(path = NULL, force = FALSE) {
   } else {
     # Create minimal structure if template not found (during development)
     data <- list(
-      version = "1.0",
+      version = "2.0",
       created = format_date(),
       cards = list(
         list(
@@ -51,6 +51,7 @@ hanzi_init <- function(path = NULL, force = FALSE) {
           final = "ao",
           components = list("\u5973", "\u5b50"),
           meaning = "good, well",
+          keyword = "good",
           example = "\u4f60\u597d (n\u01d0 h\u01ceo) - hello",
           tags = list("HSK1", "common", "greeting"),
           notes = "One of the most common characters",
@@ -63,6 +64,44 @@ hanzi_init <- function(path = NULL, force = FALSE) {
   }
 
   cli::cli_alert_success("Created {.file {path}}")
+
+  # Initialize config.yaml in the same directory
+  config_path <- file.path(dir_path, "config.yaml")
+  
+  # Check if config already exists
+  if (!file.exists(config_path) || force) {
+    config_template_path <- system.file("extdata", "config-template.yaml", package = "hanziR")
+    
+    if (file.exists(config_template_path)) {
+      file.copy(config_template_path, config_path, overwrite = TRUE)
+      cli::cli_alert_success("Created {.file {config_path}}")
+    } else {
+      # Create minimal config if template not found (during development)
+      config_data <- list(
+        version = "1.0",
+        created = format_date(),
+        mnemonic_system = list(
+          actors = list(),
+          sets = list(),
+          rooms_by_tone = list(
+            "1" = "Outside the Entrance",
+            "2" = "Kitchen",
+            "3" = "Bedroom",
+            "4" = "Bathroom",
+            "5" = "On the Roof"
+          ),
+          props = list()
+        )
+      )
+      
+      write_config(config_data, config_path)
+      cli::cli_alert_success("Created {.file {config_path}}")
+      cli::cli_alert_info("Note: Config file created with minimal structure. Consider adding actors and sets.")
+    }
+  } else {
+    cli::cli_alert_info("Config file {.file {config_path}} already exists, skipping.")
+  }
+
   cli::cli_h2("Next steps:")
   cli::cli_ul(c(
     "Add a new card: {.code hanzi add}",

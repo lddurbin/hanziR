@@ -8,8 +8,16 @@
 \description{
 A minimal R package providing a console app for managing Chinese character (Hanzi) learning cards with accessible tone cues and multiple export formats. Features include YAML-based storage, full-text search, filtering, and export to Markdown, CSV, and Anki formats.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/lddurbin/hanziR}
+  \item Report bugs at \url{https://github.com/lddurbin/hanziR/issues}
+}
+
+}
 \author{
-\strong{Maintainer}: Lee Durbin \email{lee@example.com}
+\strong{Maintainer}: Lee Durbin \email{hello@leedurbin.co.nz}
 
 }
 \keyword{internal}

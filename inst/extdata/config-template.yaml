@@ -1,0 +1,82 @@
+version: "1.0"
+created: "2025-10-14"
+
+# User's personal mnemonic system for the Hanzi Movie Method
+# Based on the Mandarin Blueprint course methodology
+
+mnemonic_system:
+  # Actors - One for each Pinyin initial
+  # Customize these to people you know well for better memorization
+  actors:
+    b-: "Brad Pitt"
+    p-: "Pink (singer)"
+    m-: "Marilyn Monroe"
+    f-: "Freddie Mercury"
+    d-: "Daniel Craig"
+    t-: "Tom Cruise"
+    n-: "Nicole Kidman"
+    l-: "Leonardo DiCaprio"
+    g-: "George Clooney"
+    k-: "Keira Knightley"
+    h-: "Hugh Jackman"
+    j-: "Jennifer Lawrence"
+    q-: "Queen Elizabeth"
+    x-: "Xavier (from X-Men)"
+    zh-: "Zhang Ziyi"
+    ch-: "Charlie Chaplin"
+    sh-: "Sean Connery"
+    r-: "Ryan Reynolds"
+    z-: "Zendaya"
+    c-: "Cate Blanchett"
+    s-: "Samuel L. Jackson"
+    y-: "Yoda"
+    w-: "Will Smith"
+    
+  # Sets - EXACTLY 13 sets (one for each Mandarin final)
+  # Choose locations with strong visual/emotional memories
+  # Ensure each location has clear spatial boundaries and 5 distinct areas
+  sets:
+    -a: "Grandmother's House"
+    -o: "First Workplace"
+    -e: "Local Library"
+    -ai: "Beach House"
+    -ei: "Shopping Mall"
+    -ao: "Mountain Cabin"
+    -ou: "Coffee Shop"
+    -an: "Favorite Restaurant"
+    -ang: "Art Gallery"
+    -(e)n: "Train Station"
+    -(e)ng: "Hospital"
+    -ong: "Hotel Lobby"
+    Ø: "Childhood Home"  # Null final (no vowel ending)
+    
+  # Rooms/locations within each set by tone
+  # These are the default mappings - can be customized per set if needed
+  rooms_by_tone:
+    1: "Outside the Entrance"
+    2: "Kitchen"  # or "Inside the Entrance" for sets without kitchens
+    3: "Bedroom"  # or "Living Room" for sets without bedrooms
+    4: "Bathroom"  # or "Backyard" for sets with strong backyard memories
+    5: "On the Roof"
+    
+  # Props - Character components and their mnemonic meanings
+  # Add components as you encounter them in your studies
+  props:
+    一: "Razor Blade"
+    丨: "Stick"
+    丶: "Dot"
+    丿: "Slash"
+    乙: "Fish Hook"
+    亅: "Hook"
+    二: "Two Planks"
+    人: "Person"
+    儿: "Legs"
+    八: "Divide"
+    十: "Cross"
+    女: "Woman"
+    子: "Child"
+    口: "Mouth"
+    门: "Door"
+    马: "Horse"
+    # Add more props as needed for your characters
+

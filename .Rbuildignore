@@ -12,4 +12,6 @@
 ^cards\.yaml$
 ^\.lintr$
 ^test_export$
+^HANZI_MOVIE_METHOD\.md$
+^PHASE1_IMPLEMENTATION\.md$
 

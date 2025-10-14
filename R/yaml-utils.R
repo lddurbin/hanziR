@@ -83,10 +83,12 @@ get_cards_tibble <- function(path = NULL) {
       final = character(),
       components = list(),
       meaning = character(),
+      keyword = character(),
       example = character(),
       tags = list(),
       notes = character(),
-      added = character()
+      added = character(),
+      mnemonic = list()
     ))
   }
 
@@ -103,10 +105,12 @@ get_cards_tibble <- function(path = NULL) {
         final = card$final %||% NA_character_,
         components = list(card$components %||% character()),
         meaning = card$meaning %||% NA_character_,
+        keyword = card$keyword %||% NA_character_,
         example = card$example %||% NA_character_,
         tags = list(card$tags %||% character()),
         notes = card$notes %||% NA_character_,
-        added = card$added %||% NA_character_
+        added = card$added %||% NA_character_,
+        mnemonic = list(card$mnemonic %||% NULL)
       )
     })
 
@@ -119,7 +123,7 @@ get_cards_tibble <- function(path = NULL) {
 #' @keywords internal
 create_empty_cards <- function() {
   list(
-    version = "1.0",
+    version = "2.0",
     created = format_date(),
     cards = list()
   )

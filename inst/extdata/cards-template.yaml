@@ -1,6 +1,7 @@
-version: "1.0"
+version: "2.0"
 created: "2025-10-14"
 cards:
+  # Example card with full mnemonic (v2.0 style)
   - char: "好"
     pinyin: "hǎo"
     tone: 3
@@ -8,10 +9,10 @@ cards:
     tone_pattern: "\\/"
     initial: "h"
     final: "ao"
-    components:
-      - "女"
-      - "子"
-    meaning: "good, well"
+    
+    # Standard fields
+    meaning: "good, well, fine, nice"
+    keyword: "good"
     example: "你好 (nǐ hǎo) - hello"
     tags:
       - "HSK1"
@@ -20,6 +21,25 @@ cards:
     notes: "One of the most common characters"
     added: "2025-10-14T10:00:00Z"
     
+    # Enhanced components - can be simple strings OR objects with meanings
+    components:
+      - char: "女"
+        meaning: "Woman"
+      - char: "子"
+        meaning: "Child"
+    
+    # Mnemonic system (optional - all fields under mnemonic are optional)
+    mnemonic:
+      actor: "Hugh Jackman"  # Based on initial "h"
+      set: "Mountain Cabin"   # Based on final "ao"
+      room: "Bedroom"         # Based on tone 3
+      scene: |
+        Hugh Jackman walks into the bedroom of my mountain cabin,
+        holding a woman and child by the hand. He looks at them both
+        with a warm smile and says "This is GOOD - family is what
+        matters most."
+    
+  # Example card with minimal mnemonic (v2.0 style - partial mnemonic)
   - char: "中"
     pinyin: "zhōng"
     tone: 1
@@ -27,17 +47,26 @@ cards:
     tone_pattern: "---"
     initial: "zh"
     final: "ong"
-    components:
-      - "口"
-      - "|"
+    
     meaning: "middle, center, China"
+    keyword: "middle"
     example: "中国 (Zhōngguó) - China"
     tags:
       - "HSK1"
       - "common"
-    notes: ""
+    notes: "The vertical line goes through the middle of the box"
     added: "2025-10-14T10:01:00Z"
     
+    # Components can still be simple strings (v1.0 backward compatible)
+    components:
+      - "口"
+      - "|"
+    
+    # Partial mnemonic - just the scene, no need for actor/set/room
+    mnemonic:
+      scene: "A stick going right through the MIDDLE of a box"
+    
+  # Example card with no mnemonic (v1.0 backward compatible)
   - char: "你"
     pinyin: "nǐ"
     tone: 3
@@ -45,9 +74,7 @@ cards:
     tone_pattern: "\\/"
     initial: "n"
     final: "i"
-    components:
-      - "亻"
-      - "尔"
+    
     meaning: "you"
     example: "你好 (nǐ hǎo) - hello"
     tags:
@@ -56,4 +83,10 @@ cards:
       - "pronoun"
     notes: "Second person singular pronoun"
     added: "2025-10-14T10:02:00Z"
+    
+    # Simple components (v1.0 style)
+    components:
+      - "亻"
+      - "尔"
+    # No mnemonic field - perfectly valid!
 
