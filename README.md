@@ -36,7 +36,7 @@ After installation, make the `hanzi` command available in your terminal:
 export PATH="$PATH:$(Rscript -e 'cat(system.file("bin", package="hanziR"))')"
 
 # Or create a symbolic link
-sudo ln -s $(Rscript -e 'cat(system.file("bin", package="hanziR"))') /usr/local/bin/hanzi
+sudo ln -s "$(Rscript -e 'cat(system.file("bin", package="hanziR"))')/hanzi" /usr/local/bin/hanzi
 ```
 
 Reload your shell or run `source ~/.zshrc` to apply changes.
