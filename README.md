@@ -13,9 +13,11 @@
 - 📝 **YAML-based**: Simple, human-readable source of truth (`cards.yaml`)
 - 🎯 **Terminal-first**: Complete workflow without leaving the command line
 - ♿ **Accessible**: Tone representation using shapes, patterns, AND colors
+- 🎬 **Mnemonic System**: Hanzi Movie Method integration for memorable character learning
 - 📊 **Multiple exports**: Markdown, CSV, and Anki TSV formats
 - 🔍 **Powerful filtering**: Search by initial, final, tone, component, or tag
 - 📈 **Statistics**: Track your collection and progress
+- 🔄 **Backward Compatible**: v1.0 cards work seamlessly with v2.0 mnemonic features
 
 ## Installation
 
@@ -44,7 +46,7 @@ Reload your shell or run `source ~/.zshrc` to apply changes.
 ## Quick Start
 
 ```bash
-# Initialize a new collection
+# Initialize a new collection (creates cards.yaml + config.yaml)
 hanzi init
 
 # Add a card interactively
@@ -74,6 +76,72 @@ hanzi stats
 # Validate your cards.yaml
 hanzi validate
 ```
+
+## Hanzi Movie Method (Mnemonic System)
+
+`hanziR` v2.0+ supports the **Hanzi Movie Method** from Mandarin Blueprint, a powerful mnemonic technique for memorizing Chinese characters using mental "movies."
+
+### Core Components
+
+Each character can have a mnemonic story built from:
+
+1. **Actor** - Person associated with the Pinyin initial (e.g., "sh-" → Sean Connery)
+2. **Set** - Location associated with the Pinyin final (e.g., "-ao" → Mountain Cabin)
+3. **Room** - Specific location within the set for the tone (e.g., Tone 3 → Bedroom)
+4. **Props** - Character components with mnemonic meanings (e.g., "女" → Woman)
+5. **Scene** - The full mnemonic story combining all elements
+
+### Configuration
+
+Your personal mnemonic system is stored in `config.yaml` alongside `cards.yaml`:
+
+```yaml
+mnemonic_system:
+  actors:
+    h-: "Hugh Jackman"
+    sh-: "Sean Connery"
+    # ... customize all 23 initials
+    
+  sets:
+    -ao: "Mountain Cabin"
+    -i: "Beach House"
+    Ø: "Childhood Home"  # null final
+    # ... exactly 13 sets for 13 finals
+    
+  rooms_by_tone:
+    1: "Outside the Entrance"
+    2: "Kitchen"
+    3: "Bedroom"
+    4: "Bathroom"
+    5: "On the Roof"
+    
+  props:
+    女: "Woman"
+    子: "Child"
+    # ... add as you learn
+```
+
+### Using R Functions
+
+```r
+library(hanziR)
+
+# Read configuration
+config <- read_config()
+
+# Get mnemonic elements
+get_actor("sh", config)  # "Sean Connery"
+get_set("ao", config)    # "Mountain Cabin"
+get_room(3, config)      # "Bedroom"
+get_prop("女", config)   # "Woman"
+```
+
+### Backward Compatibility
+
+- ✅ All mnemonic fields are **optional**
+- ✅ v1.0 cards work perfectly without modification
+- ✅ Add mnemonic info gradually as you learn
+- ✅ Mix v1.0 and v2.0 cards in the same file
 
 ## Accessible Tone System
 
@@ -128,7 +196,50 @@ Validate the `cards.yaml` file for consistency and completeness.
 
 ## Data Structure
 
-Cards are stored in `inst/data/cards.yaml`:
+### v2.0 Format (with optional mnemonic fields)
+
+Cards are stored in `cards.yaml`:
+
+```yaml
+version: "2.0"
+created: "2025-10-14"
+cards:
+  - char: "好"
+    pinyin: "hǎo"
+    tone: 3
+    tone_shape: "dip"
+    tone_pattern: "\\/"
+    initial: "h"
+    final: "ao"
+    
+    # Standard fields
+    meaning: "good, well, fine"
+    keyword: "good"  # Optional: simpler mnemonic keyword
+    example: "你好 (nǐ hǎo) - hello"
+    tags: ["HSK1", "common", "greeting"]
+    notes: "One of the most common characters"
+    added: "2025-10-14T10:30:00Z"
+    
+    # Enhanced components - supports both formats:
+    components:
+      - char: "女"
+        meaning: "Woman"  # v2.0: object with meaning
+      - char: "子"
+        meaning: "Child"
+    # OR simple format: components: ["女", "子"]  # v1.0 still works!
+    
+    # Mnemonic system (completely optional)
+    mnemonic:
+      actor: "Hugh Jackman"     # Based on initial "h"
+      set: "Mountain Cabin"      # Based on final "ao"
+      room: "Bedroom"            # Based on tone 3
+      scene: |
+        Hugh Jackman walks into the bedroom of my mountain cabin,
+        holding a woman and child by the hand. He smiles warmly and
+        says "This is GOOD - family is what matters most."
+```
+
+### v1.0 Format (still fully supported)
 
 ```yaml
 version: "1.0"
@@ -151,18 +262,43 @@ cards:
 
 ## Development Status
 
-✅ **Phase 1 Complete (v0.1.0)** - See [PHASE1_COMPLETE.md](PHASE1_COMPLETE.md) for details.
-
-- [x] Phase 1: Setup & Infrastructure ✅
-- [x] Phase 2: Core Infrastructure ✅
-- [x] Phase 3: CRUD Operations ✅
-- [x] Phase 4: Query Operations ✅
-- [x] Phase 5: Export & Stats ✅
-- [x] Phase 6: CLI Integration ✅
-- [x] Phase 7: Documentation & Polish ✅
-- [x] Phase 8: Testing & Release ✅
+### Core Package (v0.1.0) ✅
+- [x] Setup & Infrastructure
+- [x] Core Infrastructure
+- [x] CRUD Operations
+- [x] Query Operations
+- [x] Export & Stats
+- [x] CLI Integration
+- [x] Documentation & Polish
+- [x] Testing & Release
 
 **Status**: Production ready! All 9 commands implemented and tested.
+
+### Hanzi Movie Method Integration
+
+**Phase 1: Core Data Structure ✅ (v2.0)**
+- [x] Configuration system (`config.yaml`)
+- [x] Enhanced card schema with mnemonic fields
+- [x] Flexible component format (strings or objects)
+- [x] Backward compatibility with v1.0 cards
+- [x] Config utility functions (`get_actor`, `get_set`, `get_room`, `get_prop`)
+- [x] Comprehensive test coverage (62 tests passing)
+- [x] R CMD check: 0 errors, 0 warnings, 0 notes
+
+**Phase 2: Configuration Management** 🚧 (Planned)
+- [ ] `hanzi config` CLI commands
+- [ ] Config validation
+- [ ] Actor/set/room customization
+
+**Phase 3: Enhanced CRUD** 🚧 (Planned)
+- [ ] Interactive mnemonic prompts in `hanzi add`
+- [ ] Auto-populate from config based on pinyin
+- [ ] Enhanced `hanzi show` with mnemonic display
+
+**Phase 4+: Advanced Features** 📋 (Future)
+- [ ] Mnemonic-aware exports
+- [ ] Actor/set/prop listing and filtering
+- [ ] Mnemonic search capabilities
 
 ## Contributing
 
