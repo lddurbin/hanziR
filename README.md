@@ -81,6 +81,33 @@ hanzi validate
 
 `hanziR` v2.0+ supports the **Hanzi Movie Method** from Mandarin Blueprint, a powerful mnemonic technique for memorizing Chinese characters using mental "movies."
 
+### Configuration Commands
+
+Manage your personal mnemonic system with `hanzi config`:
+
+```bash
+# Initialize config with default actors/sets/rooms
+hanzi config init
+
+# View entire configuration
+hanzi config show
+
+# View specific sections
+hanzi config show actors
+hanzi config show sets
+hanzi config show rooms
+hanzi config show props
+
+# Validate configuration
+hanzi config validate
+
+# Customize your system
+hanzi config set actor sh "Sean Connery"
+hanzi config set set -ao "Mountain Cabin"
+hanzi config set room 3 "Bedroom"
+hanzi config set prop 女 "Woman"
+```
+
 ### Core Components
 
 Each character can have a mnemonic story built from:
@@ -285,10 +312,10 @@ cards:
 - [x] Comprehensive test coverage (62 tests passing)
 - [x] R CMD check: 0 errors, 0 warnings, 0 notes
 
-**Phase 2: Configuration Management** 🚧 (Planned)
-- [ ] `hanzi config` CLI commands
-- [ ] Config validation
-- [ ] Actor/set/room customization
+**Phase 2: Configuration Management** ✅ (Complete)
+- [x] `hanzi config` CLI commands
+- [x] Config validation
+- [x] Actor/set/room customization
 
 **Phase 3: Enhanced CRUD** 🚧 (Planned)
 - [ ] Interactive mnemonic prompts in `hanzi add`
