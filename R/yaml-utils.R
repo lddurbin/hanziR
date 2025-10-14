@@ -13,7 +13,9 @@ read_cards <- function(path = NULL) {
   }
   
   tryCatch({
-    data <- yaml::read_yaml(path)
+    # Read YAML content as UTF-8 text
+    yaml_text <- readLines(path, encoding = "UTF-8", warn = FALSE)
+    data <- yaml::yaml.load(paste(yaml_text, collapse = "\n"))
     
     # Validate structure
     if (is.null(data$cards)) {
@@ -50,7 +52,9 @@ write_cards <- function(data, path = NULL) {
   }
   
   tryCatch({
-    yaml::write_yaml(data, path)
+    # Convert to YAML string and write with UTF-8 encoding
+    yaml_text <- yaml::as.yaml(data)
+    writeLines(yaml_text, path, useBytes = FALSE)
     invisible(NULL)
   }, error = function(e) {
     cli::cli_abort(c(

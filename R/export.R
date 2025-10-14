@@ -41,7 +41,10 @@ export_markdown <- function(cards, out_dir) {
   # Create one file per card
   for (i in seq_len(nrow(cards))) {
     card <- cards[i, ]
-    filename <- file.path(out_dir, paste0(card$char, ".md"))
+    # Use pinyin for filename to avoid encoding issues
+    safe_name <- gsub("[^a-zA-Z0-9]", "", card$pinyin)
+    if (nchar(safe_name) == 0) safe_name <- paste0("card", i)
+    filename <- file.path(out_dir, paste0(safe_name, ".md"))
     
     # Build markdown content
     content <- c(
@@ -107,9 +110,11 @@ export_markdown <- function(cards, out_dir) {
   
   for (i in seq_len(nrow(cards))) {
     card <- cards[i, ]
+    safe_name <- gsub("[^a-zA-Z0-9]", "", card$pinyin)
+    if (nchar(safe_name) == 0) safe_name <- paste0("card", i)
     index_content <- c(
       index_content,
-      glue::glue("- [{card$char}]({card$char}.md) - {card$pinyin} - {card$meaning}")
+      glue::glue("- [{card$char}]({safe_name}.md) - {card$pinyin} - {card$meaning}")
     )
   }
   
