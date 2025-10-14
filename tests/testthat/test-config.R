@@ -95,4 +95,3 @@ test_that("config_init creates config file", {
     "Config template not found"
   )
 })
-

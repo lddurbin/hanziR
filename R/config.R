@@ -223,7 +223,10 @@ config_validate <- function() {
     errors <- c(errors, "Missing 'mnemonic_system' section")
   } else {
     # Validate sets (must have exactly 13)
-    required_finals <- c("-a", "-o", "-e", "-ai", "-ei", "-ao", "-ou", "-an", "-ang", "-(e)n", "-(e)ng", "-ong", "\u00D8")
+    required_finals <- c(
+      "-a", "-o", "-e", "-ai", "-ei", "-ao", "-ou",
+      "-an", "-ang", "-(e)n", "-(e)ng", "-ong", "\u00D8"
+    )
 
     if (is.null(config$mnemonic_system$sets)) {
       errors <- c(errors, "Missing 'sets' section")
@@ -417,4 +420,3 @@ set_prop <- function(config, component, meaning) {
   cli::cli_alert_success("Set prop {.strong {component}} to {.val {meaning}}")
   invisible(NULL)
 }
-
