@@ -16,7 +16,7 @@ hanzi_add <- function() {
   }
 
   # Pinyin (required)
-  pinyin <- read_line("Pinyin with tone marks (required): ")
+  pinyin <- read_line("Pinyin (required, e.g. 'hao3' or 'hǎo'): ")
   pinyin <- trimws(pinyin)
 
   if (nchar(pinyin) == 0) {
