@@ -47,8 +47,8 @@ Reload your shell or run `source ~/.zshrc` to apply changes.
 
 ```bash
 # Initialize a new collection (creates cards.yaml + config.yaml)
-hanzi init                  # With example cards
-hanzi init --minimal        # Or start from scratch with empty cards
+hanzi init                  # With example cards and pre-populated config
+hanzi init --minimal        # Or start from scratch (empty cards and minimal config)
 
 # Add a card interactively
 hanzi add
@@ -242,7 +242,7 @@ Example output: "好 (hǎo) - Tone 3 (dip \\/)"
 Initialize new `cards.yaml` and `config.yaml` files with templates.
 
 Options:
-- `--minimal` or `--empty`: Create an empty cards list without example cards (start from scratch)
+- `--minimal` or `--empty`: Create an empty cards list without example cards, and a minimal config with empty actors, sets, and props (start from scratch)
 
 #### `hanzi add`
 Interactively add a new card with prompts for all fields, including optional mnemonic information (actor, set, room, scene).

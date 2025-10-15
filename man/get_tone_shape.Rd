@@ -10,12 +10,12 @@ get_tone_shape(tone)
 \item{tone}{Tone number (1-5)}
 }
 \value{
-Shape name (flat, rise, dip, fall, neutral)
+Shape name (singing, unsure, zombie, assertive, contrarian)
 }
 \description{
-Convert tone number to accessible shape name
+Convert tone number to accessible shape name using Mandarin Blueprint terminology
 }
 \examples{
-get_tone_shape(1)  # "flat"
-get_tone_shape(3)  # "dip"
+get_tone_shape(1)  # "singing"
+get_tone_shape(3)  # "zombie"
 }

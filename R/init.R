@@ -82,13 +82,8 @@ hanzi_init <- function(path = NULL, force = FALSE, minimal = FALSE) {
 
   # Check if config already exists
   if (!file.exists(config_path) || force) {
-    config_template_path <- system.file("extdata", "config-template.yaml", package = "hanziR")
-
-    if (file.exists(config_template_path)) {
-      file.copy(config_template_path, config_path, overwrite = TRUE)
-      cli::cli_alert_success("Created {.file {config_path}}")
-    } else {
-      # Create minimal config if template not found (during development)
+    if (minimal) {
+      # Create minimal config with empty actors, sets, and props
       config_data <- list(
         version = "1.0",
         created = format_date(),
@@ -107,8 +102,40 @@ hanzi_init <- function(path = NULL, force = FALSE, minimal = FALSE) {
       )
 
       write_config(config_data, config_path)
-      cli::cli_alert_success("Created {.file {config_path}}")
-      cli::cli_alert_info("Note: Config file created with minimal structure. Consider adding actors and sets.")
+      cli::cli_alert_success("Created {.file {config_path}} (minimal)")
+      cli::cli_alert_info(
+        "Note: Config created with empty actors, sets, and props. Use 'hanzi config set' to add them."
+      )
+    } else {
+      # Use full template with pre-populated actors, sets, and props
+      config_template_path <- system.file("extdata", "config-template.yaml", package = "hanziR")
+
+      if (file.exists(config_template_path)) {
+        file.copy(config_template_path, config_path, overwrite = TRUE)
+        cli::cli_alert_success("Created {.file {config_path}}")
+      } else {
+        # Create minimal config if template not found (during development)
+        config_data <- list(
+          version = "1.0",
+          created = format_date(),
+          mnemonic_system = list(
+            actors = list(),
+            sets = list(),
+            rooms_by_tone = list(
+              "1" = "Outside the Entrance",
+              "2" = "Kitchen",
+              "3" = "Bedroom",
+              "4" = "Bathroom",
+              "5" = "On the Roof"
+            ),
+            props = list()
+          )
+        )
+
+        write_config(config_data, config_path)
+        cli::cli_alert_success("Created {.file {config_path}}")
+        cli::cli_alert_info("Note: Config file created with minimal structure. Consider adding actors and sets.")
+      }
     }
   } else {
     cli::cli_alert_info("Config file {.file {config_path}} already exists, skipping.")
