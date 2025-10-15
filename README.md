@@ -235,40 +235,77 @@ Example output: "好 (hǎo) - Tone 3 (dip \\/)"
 
 ## Commands
 
-### `hanzi init`
-Initialize a new `cards.yaml` file with example cards.
+### Card Management
 
-### `hanzi add`
-Interactively add a new card with prompts for all fields.
+#### `hanzi init`
+Initialize new `cards.yaml` and `config.yaml` files with templates.
 
-### `hanzi list`
+#### `hanzi add`
+Interactively add a new card with prompts for all fields, including optional mnemonic information (actor, set, room, scene).
+
+#### `hanzi list`
 Display all cards in a compact table format.
 
-### `hanzi show <char>`
-Show detailed information about a specific character.
+#### `hanzi show <char>`
+Show detailed information about a specific character, including mnemonic section if present.
 
-### `hanzi search <query...>`
+#### `hanzi mnemonic <char>`
+Quick-view of just the mnemonic information (actor, set, room, props, scene) for a character.
+
+#### `hanzi search <query...>`
 Full-text search across all fields (character, pinyin, meaning, examples, notes, tags).
 
-### `hanzi filter [options]`
+#### `hanzi filter [options]`
 Filter cards by specific criteria:
 - `--initial <value>`: Filter by initial consonant
 - `--final <value>`: Filter by final vowel sound
 - `--tone <1-5>`: Filter by tone number
 - `--component <char>`: Filter by component character
 - `--tag <tag>`: Filter by tag (e.g., HSK1, common)
+- `--actor <name>`: Filter by mnemonic actor (partial match)
+- `--set <name>`: Filter by mnemonic set (partial match)
+- `--room <name>`: Filter by mnemonic room (partial match)
 
-### `hanzi export <format> [--out <dir>]`
-Export cards to different formats:
-- `md`: Markdown files (one per card + index)
-- `csv`: Single CSV file
-- `tsv`: Anki-compatible two-column format (Front/Back)
+#### `hanzi export <format> [--out <dir>]`
+Export cards to different formats with mnemonic data:
+- `md`: Markdown files (one per card + index) with mnemonic sections
+- `csv`: Single CSV file with mnemonic columns
+- `tsv`: Anki-compatible format with mnemonics on card back
 
-### `hanzi stats`
+#### `hanzi stats`
 Display statistics about your card collection.
 
-### `hanzi validate`
-Validate the `cards.yaml` file for consistency and completeness.
+#### `hanzi validate`
+Validate the `cards.yaml` file for consistency and completeness, including mnemonic validation against config.
+
+### Configuration Management
+
+#### `hanzi config init`
+Initialize `config.yaml` with default actors, sets, rooms, and props.
+
+#### `hanzi config show [section]`
+Display configuration. Optional section: `actors`, `sets`, `rooms`, or `props`.
+
+#### `hanzi config validate`
+Validate configuration has exactly 13 sets and 5 rooms as required.
+
+#### `hanzi config set <type> <key> <value>`
+Set configuration values:
+- `actor <initial> <name>`: Set actor for Pinyin initial
+- `set <final> <location>`: Set location for Pinyin final
+- `room <tone> <name>`: Set room for tone (1-5)
+- `prop <component> <meaning>`: Set mnemonic meaning for component
+
+### Discovery & Reference
+
+#### `hanzi actors [--usage]`
+List all actors in your mnemonic system. Use `--usage` to show card counts.
+
+#### `hanzi sets [--usage]`
+List all sets (locations) in your mnemonic system. Use `--usage` to show card counts.
+
+#### `hanzi props [--usage] [--limit N]`
+List all props (component meanings). Use `--usage` for card counts, `--limit N` to show only first N props.
 
 ## Data Structure
 
