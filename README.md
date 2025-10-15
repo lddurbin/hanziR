@@ -52,6 +52,10 @@ hanzi init --minimal        # Or start from scratch (empty cards and minimal con
 
 # Add a card interactively
 hanzi add
+# Example for 十 (shí - "ten"):
+#   Initial: sh
+#   Final: Ø  (null final for characters like shí, sì)
+#   This maps to: Actor (sh-), Set (Ø), Room (tone 2)
 
 # List all cards
 hanzi list
@@ -162,7 +166,7 @@ mnemonic_system:
   sets:
     -ao: "Mountain Cabin"
     -i: "Beach House"
-    Ø: "Childhood Home"  # null final
+    Ø: "Childhood Home"  # null final (for characters like 十 shí, 四 sì)
     # ... exactly 13 sets for 13 finals
     
   rooms_by_tone:
@@ -247,6 +251,8 @@ Options:
 
 #### `hanzi add`
 Interactively add a new card with prompts for all fields, including optional mnemonic information (actor, set, room, scene).
+
+**Note on Finals**: For characters with no final vowel (like 十 shí, 四 sì), enter `Ø` for the null final, which maps to your designated null final set (default: "Childhood Home").
 
 #### `hanzi list`
 Display all cards in a compact table format.
