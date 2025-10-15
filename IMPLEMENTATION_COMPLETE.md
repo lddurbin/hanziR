@@ -87,7 +87,7 @@ Successfully implemented full Hanzi Movie Method integration into hanziR, allowi
 
 ## Complete Feature Set
 
-### Commands (11 total)
+### Commands (14 total)
 1. `hanzi init` - Initialize cards.yaml and config.yaml
 2. `hanzi add` - Add card with optional mnemonic
 3. `hanzi list` - List all cards
@@ -97,8 +97,11 @@ Successfully implemented full Hanzi Movie Method integration into hanziR, allowi
 7. `hanzi filter [options]` - Filter by criteria
 8. `hanzi export <format>` - Export with mnemonics
 9. `hanzi config <subcommand>` - Manage config
-10. `hanzi stats` - Collection statistics
-11. `hanzi validate` - Validate cards + mnemonics
+10. `hanzi actors [--usage]` - List actors
+11. `hanzi sets [--usage]` - List sets
+12. `hanzi props [--usage] [--limit N]` - List props
+13. `hanzi stats` - Collection statistics
+14. `hanzi validate` - Validate cards + mnemonics
 
 ### Configuration System
 - 23 default actors (Pinyin initials)
@@ -122,17 +125,17 @@ Successfully implemented full Hanzi Movie Method integration into hanziR, allowi
 - ✅ **Documentation:** Complete roxygen2 docs
 
 ### Code Statistics
-- **New R files:** 3 (config.R, mnemonic.R, config-utils.R)
-- **Modified R files:** 7 (add.R, show.R, export.R, validate.R, init.R, cli.R, yaml-utils.R)
-- **New functions:** 25+
+- **New R files:** 4 (config.R, mnemonic.R, config-utils.R, discovery.R)
+- **Modified R files:** 8 (add.R, show.R, export.R, validate.R, init.R, cli.R, yaml-utils.R, filter.R)
+- **New functions:** 30+
 - **Test files:** 4 (config, config-utils, yaml-utils, existing tests)
-- **Documentation files:** 30+ .Rd files
+- **Documentation files:** 35+ .Rd files
 
 ### Lines of Code Added
-- R code: ~1200 lines
+- R code: ~1500 lines
 - Tests: ~200 lines
-- Documentation: ~600 lines
-- Total: ~2000+ lines
+- Documentation: ~700 lines
+- Total: ~2400+ lines
 
 ## User Experience
 
@@ -183,16 +186,39 @@ hanzi export tsv                    # Anki with mnemonics
 hanzi validate                      # Checks mnemonic consistency
 ```
 
-## Future Enhancements (Phase 5 - Optional)
+### ✅ Phase 5: Discovery & Reference
+**What:** Browse and filter by mnemonic elements
 
-### Discovery & Reference
-- `hanzi actors` - List all actors with their initials
-- `hanzi sets` - List all sets with their finals
-- `hanzi props` - List all props with meanings
-- Enhanced filtering by mnemonic elements
-- Search within mnemonic scenes
+**New Commands:**
+- `hanzi actors [--usage]` - List all actors with their initials
+  - Optional usage stats show card counts
+- `hanzi sets [--usage]` - List all sets with their finals
+  - Optional usage stats show card counts
+- `hanzi props [--usage] [--limit N]` - List all props with meanings
+  - Optional usage stats show card counts
+  - Limit output to avoid overwhelming display
 
-These features would be nice-to-have but aren't essential for the core workflow.
+**Enhanced Filtering:**
+- `--actor <name>` - Filter cards by mnemonic actor (partial match)
+- `--set <name>` - Filter cards by mnemonic set (partial match)
+- `--room <name>` - Filter cards by mnemonic room (partial match)
+- All use case-insensitive partial matching
+
+**Files Created:**
+- `R/discovery.R` (220 lines)
+- 3 documentation files
+
+**Files Modified:**
+- `R/filter.R` - Added mnemonic filtering
+- `R/cli.R` - Added command routing and help
+
+**Impact:** Users can explore their mnemonic system and find cards using specific actors, sets, or rooms
+
+---
+
+## All Phases Complete! 🎉
+
+All 5 planned phases have been successfully implemented.
 
 ## Breaking Changes
 **None!** Fully backward compatible:
