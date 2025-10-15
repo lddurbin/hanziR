@@ -68,10 +68,10 @@ hanzi search greeting
 hanzi filter --tag HSK1
 hanzi filter --tone 3 --initial h
 
-# Export to various formats
-hanzi export md --out docs/
-hanzi export csv
-hanzi export tsv  # Anki-compatible
+# Export to various formats (includes mnemonic data!)
+hanzi export md --out docs/   # Markdown with mnemonic sections
+hanzi export csv              # CSV with mnemonic_actor, mnemonic_set, etc.
+hanzi export tsv              # Anki-compatible with mnemonics on back
 
 # View statistics
 hanzi stats
@@ -172,6 +172,26 @@ get_prop("女", config)   # "Woman"
 - ✅ v1.0 cards work perfectly without modification
 - ✅ Add mnemonic info gradually as you learn
 - ✅ Mix v1.0 and v2.0 cards in the same file
+
+### Exports Include Mnemonic Data
+
+All export formats now include mnemonic information:
+
+**Markdown (`.md`):**
+- Each card file includes a "## Mnemonic" section
+- Shows actor, set, room, and full scene
+- Component meanings displayed in parentheses
+
+**CSV (`.csv`):**
+- New columns: `keyword`, `mnemonic_actor`, `mnemonic_set`, `mnemonic_room`, `mnemonic_scene`
+- Component meanings included in components column
+- Perfect for spreadsheet analysis
+
+**Anki TSV (`.tsv`):**
+- Mnemonic appears on card back after meaning/example
+- Formatted section: "--- MNEMONIC ---"
+- Includes actor, set, room, and scene
+- Easy to review while studying
 
 ## Accessible Tone System
 
@@ -327,10 +347,16 @@ cards:
 - [x] `hanzi mnemonic` quick-view command
 - [x] Validation for mnemonic fields
 
-**Phase 4+: Advanced Features** 📋 (Future)
-- [ ] Mnemonic-aware exports
+**Phase 4: Enhanced Exports** ✅ (Complete)
+- [x] Markdown export with mnemonic sections
+- [x] Anki export with mnemonic on card back
+- [x] CSV export with mnemonic columns
+- [x] Component meanings in all formats
+
+**Phase 5: Discovery & Reference** 📋 (Future)
 - [ ] Actor/set/prop listing and filtering
 - [ ] Mnemonic search capabilities
+- [ ] Advanced filtering by mnemonic elements
 
 ## Contributing
 
