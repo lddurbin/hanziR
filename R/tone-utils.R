@@ -1,19 +1,19 @@
 #' Get tone shape name
 #'
-#' Convert tone number to accessible shape name
+#' Convert tone number to accessible shape name using Mandarin Blueprint terminology
 #'
 #' @param tone Tone number (1-5)
-#' @return Shape name (flat, rise, dip, fall, neutral)
+#' @return Shape name (singing, unsure, zombie, assertive, contrarian)
 #' @export
 #' @examples
-#' get_tone_shape(1)  # "flat"
-#' get_tone_shape(3)  # "dip"
+#' get_tone_shape(1)  # "singing"
+#' get_tone_shape(3)  # "zombie"
 get_tone_shape <- function(tone) {
-  shapes <- c("flat", "rise", "dip", "fall", "neutral")
+  shapes <- c("singing", "unsure", "zombie", "assertive", "contrarian")
 
   if (is.na(tone) || !tone %in% 1:5) {
-    cli::cli_warn("Invalid tone: {tone}. Using neutral.")
-    return("neutral")
+    cli::cli_warn("Invalid tone: {tone}. Using contrarian.")
+    return("contrarian")
   }
 
   shapes[tone]
