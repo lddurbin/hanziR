@@ -8,7 +8,7 @@ hanzi_add <- function() {
   cli::cli_h2("Add New Card")
 
   # Character (required)
-  char <- readline("Character (required): ")
+  char <- read_line("Character (required): ")
   char <- trimws(char)
 
   if (nchar(char) == 0) {
@@ -16,7 +16,7 @@ hanzi_add <- function() {
   }
 
   # Pinyin (required)
-  pinyin <- readline("Pinyin with tone marks (required): ")
+  pinyin <- read_line("Pinyin with tone marks (required): ")
   pinyin <- trimws(pinyin)
 
   if (nchar(pinyin) == 0) {
@@ -27,7 +27,7 @@ hanzi_add <- function() {
   tone <- parse_tone_from_pinyin(pinyin)
 
   # Allow manual tone override
-  tone_input <- readline(sprintf("Tone (1-5) [detected: %d]: ", tone))
+  tone_input <- read_line(sprintf("Tone (1-5) [detected: %d]: ", tone))
   tone_input <- trimws(tone_input)
   if (nchar(tone_input) > 0) {
     tone <- as.integer(tone_input)
@@ -41,15 +41,15 @@ hanzi_add <- function() {
   tone_pattern <- get_tone_pattern(tone)
 
   # Initial
-  initial <- readline("Initial consonant: ")
+  initial <- read_line("Initial consonant: ")
   initial <- trimws(initial)
 
   # Final
-  final <- readline("Final vowel: ")
+  final <- read_line("Final vowel: ")
   final <- trimws(final)
 
   # Components
-  components_input <- readline("Components (comma-separated): ")
+  components_input <- read_line("Components (comma-separated): ")
   components <- if (nchar(trimws(components_input)) > 0) {
     strsplit(components_input, ",")[[1]] |>
       stringr::str_trim()
@@ -58,7 +58,7 @@ hanzi_add <- function() {
   }
 
   # Meaning (required)
-  meaning <- readline("Meaning (required): ")
+  meaning <- read_line("Meaning (required): ")
   meaning <- trimws(meaning)
 
   if (nchar(meaning) == 0) {
@@ -66,12 +66,12 @@ hanzi_add <- function() {
   }
 
   # Example
-  example <- readline("Example: ")
+  example <- read_line("Example: ")
   example <- trimws(example)
   if (nchar(example) == 0) example <- NA_character_
 
   # Tags
-  tags_input <- readline("Tags (comma-separated): ")
+  tags_input <- read_line("Tags (comma-separated): ")
   tags <- if (nchar(trimws(tags_input)) > 0) {
     strsplit(tags_input, ",")[[1]] |>
       stringr::str_trim()
@@ -80,7 +80,7 @@ hanzi_add <- function() {
   }
 
   # Notes
-  notes <- readline("Notes: ")
+  notes <- read_line("Notes: ")
   notes <- trimws(notes)
   if (nchar(notes) == 0) notes <- NA_character_
 
@@ -92,14 +92,14 @@ hanzi_add <- function() {
   config <- tryCatch(read_config(), error = function(e) NULL)
 
   mnemonic <- NULL
-  add_mnemonic <- readline("Add mnemonic information? (y/N): ")
+  add_mnemonic <- read_line("Add mnemonic information? (y/N): ")
 
   if (tolower(trimws(add_mnemonic)) %in% c("y", "yes")) {
     mnemonic <- list()
 
     # Keyword (optional)
     keyword_prompt <- sprintf("Keyword (default: %s): ", meaning)
-    keyword <- readline(keyword_prompt)
+    keyword <- read_line(keyword_prompt)
     keyword <- trimws(keyword)
     if (nchar(keyword) == 0) keyword <- meaning
 
@@ -108,17 +108,17 @@ hanzi_add <- function() {
       suggested_actor <- get_actor(initial, config)
       if (!is.null(suggested_actor)) {
         actor_prompt <- sprintf("Actor [%s]: ", suggested_actor)
-        actor <- readline(actor_prompt)
+        actor <- read_line(actor_prompt)
         actor <- trimws(actor)
         if (nchar(actor) == 0) actor <- suggested_actor
         mnemonic$actor <- actor
       } else {
-        actor <- readline("Actor: ")
+        actor <- read_line("Actor: ")
         actor <- trimws(actor)
         if (nchar(actor) > 0) mnemonic$actor <- actor
       }
     } else {
-      actor <- readline("Actor: ")
+      actor <- read_line("Actor: ")
       actor <- trimws(actor)
       if (nchar(actor) > 0) mnemonic$actor <- actor
     }
@@ -128,17 +128,17 @@ hanzi_add <- function() {
       suggested_set <- get_set(final, config)
       if (!is.null(suggested_set)) {
         set_prompt <- sprintf("Set [%s]: ", suggested_set)
-        set <- readline(set_prompt)
+        set <- read_line(set_prompt)
         set <- trimws(set)
         if (nchar(set) == 0) set <- suggested_set
         mnemonic$set <- set
       } else {
-        set <- readline("Set: ")
+        set <- read_line("Set: ")
         set <- trimws(set)
         if (nchar(set) > 0) mnemonic$set <- set
       }
     } else {
-      set <- readline("Set: ")
+      set <- read_line("Set: ")
       set <- trimws(set)
       if (nchar(set) > 0) mnemonic$set <- set
     }
@@ -148,17 +148,17 @@ hanzi_add <- function() {
       suggested_room <- get_room(tone, config)
       if (!is.null(suggested_room)) {
         room_prompt <- sprintf("Room [%s]: ", suggested_room)
-        room <- readline(room_prompt)
+        room <- read_line(room_prompt)
         room <- trimws(room)
         if (nchar(room) == 0) room <- suggested_room
         mnemonic$room <- room
       } else {
-        room <- readline("Room: ")
+        room <- read_line("Room: ")
         room <- trimws(room)
         if (nchar(room) > 0) mnemonic$room <- room
       }
     } else {
-      room <- readline("Room: ")
+      room <- read_line("Room: ")
       room <- trimws(room)
       if (nchar(room) > 0) mnemonic$room <- room
     }
@@ -167,7 +167,7 @@ hanzi_add <- function() {
     cli::cli_text("Scene (press Enter twice when done):")
     scene_lines <- character()
     repeat {
-      line <- readline()
+      line <- read_line()
       if (nchar(trimws(line)) == 0 && length(scene_lines) > 0) break
       if (nchar(trimws(line)) > 0) scene_lines <- c(scene_lines, line)
     }

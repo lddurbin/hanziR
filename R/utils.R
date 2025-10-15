@@ -1,3 +1,19 @@
+#' Read a line from stdin (works in both interactive and non-interactive mode)
+#'
+#' @param prompt Prompt to display
+#' @return String input from user
+#' @keywords internal
+read_line <- function(prompt = "") {
+  if (interactive()) {
+    readline(prompt)
+  } else {
+    cat(prompt)
+    result <- readLines(file("stdin"), n = 1, warn = FALSE)
+    if (length(result) == 0) return("")
+    result
+  }
+}
+
 #' Find the cards.yaml file
 #'
 #' Looks for cards.yaml in the current directory, then in inst/data/

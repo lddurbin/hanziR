@@ -32,7 +32,7 @@ config_init <- function(force = FALSE) {
   # Check if file already exists
   if (file.exists(config_path) && !force) {
     cli::cli_alert_info("File {.file {config_path}} already exists")
-    response <- readline("Overwrite? (y/N): ")
+    response <- read_line("Overwrite? (y/N): ")
 
     if (!tolower(trimws(response)) %in% c("y", "yes")) {
       cli::cli_alert_info("Cancelled. No changes made.")
