@@ -41,15 +41,15 @@ hanzi_add <- function() {
   tone_pattern <- get_tone_pattern(tone)
 
   # Initial
-  initial <- read_line("Initial consonant: ")
+  initial <- read_line("Initial consonant (e.g. 'sh', 'h', 'zh'): ")
   initial <- trimws(initial)
 
   # Final
-  final <- read_line("Final vowel: ")
+  final <- read_line("Final vowel (e.g. 'ao', 'i', or '\u00d8' for null final): ")
   final <- trimws(final)
 
   # Components
-  components_input <- read_line("Components (comma-separated): ")
+  components_input <- read_line("Components (comma-separated, e.g. '\u4e00, \u4e28' for character pieces): ")
   components <- if (nchar(trimws(components_input)) > 0) {
     strsplit(components_input, ",")[[1]] |>
       stringr::str_trim()
@@ -66,12 +66,12 @@ hanzi_add <- function() {
   }
 
   # Example
-  example <- read_line("Example: ")
+  example <- read_line("Example (optional, e.g. '\u5341\u5929 (sh\u00ed ti\u0101n) - ten days'): ")
   example <- trimws(example)
   if (nchar(example) == 0) example <- NA_character_
 
   # Tags
-  tags_input <- read_line("Tags (comma-separated): ")
+  tags_input <- read_line("Tags (optional, e.g. 'HSK1, numbers, common'): ")
   tags <- if (nchar(trimws(tags_input)) > 0) {
     strsplit(tags_input, ",")[[1]] |>
       stringr::str_trim()
@@ -80,7 +80,7 @@ hanzi_add <- function() {
   }
 
   # Notes
-  notes <- read_line("Notes: ")
+  notes <- read_line("Notes (optional, any additional info): ")
   notes <- trimws(notes)
   if (nchar(notes) == 0) notes <- NA_character_
 
