@@ -64,9 +64,11 @@ hanzi mnemonic 好
 # Search across all fields
 hanzi search greeting
 
-# Filter by criteria
+# Filter by criteria (including mnemonic elements!)
 hanzi filter --tag HSK1
 hanzi filter --tone 3 --initial h
+hanzi filter --actor "Hugh"
+hanzi filter --set "Cabin" --room "Bedroom"
 
 # Export to various formats (includes mnemonic data!)
 hanzi export md --out docs/   # Markdown with mnemonic sections
@@ -109,6 +111,30 @@ hanzi config set actor sh "Sean Connery"
 hanzi config set set -ao "Mountain Cabin"
 hanzi config set room 3 "Bedroom"
 hanzi config set prop 女 "Woman"
+```
+
+### Discovery Commands
+
+Explore your mnemonic system with these commands:
+
+```bash
+# List all actors
+hanzi actors
+
+# List actors with usage stats (how many cards use each)
+hanzi actors --usage
+
+# List all sets (locations)
+hanzi sets
+
+# List sets with usage stats
+hanzi sets --usage
+
+# List all props (component meanings)
+hanzi props
+
+# List props with usage stats, limited to first 20
+hanzi props --usage --limit 20
 ```
 
 ### Core Components
@@ -353,10 +379,12 @@ cards:
 - [x] CSV export with mnemonic columns
 - [x] Component meanings in all formats
 
-**Phase 5: Discovery & Reference** 📋 (Future)
-- [ ] Actor/set/prop listing and filtering
-- [ ] Mnemonic search capabilities
-- [ ] Advanced filtering by mnemonic elements
+**Phase 5: Discovery & Reference** ✅ (Complete)
+- [x] `hanzi actors` - List all actors with usage stats
+- [x] `hanzi sets` - List all sets with usage stats
+- [x] `hanzi props` - List all props with usage stats
+- [x] Filter by actor/set/room in `hanzi filter`
+- [x] Partial matching for mnemonic filters
 
 ## Contributing
 

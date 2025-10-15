@@ -18,6 +18,11 @@ hanzi_filter <- function(args = character()) {
   component_filter <- parse_option(args, "--component")
   tag_filter <- parse_option(args, "--tag")
 
+  # Mnemonic filter options
+  actor_filter <- parse_option(args, "--actor")
+  set_filter <- parse_option(args, "--set")
+  room_filter <- parse_option(args, "--room")
+
   # Start with all cards
   results <- cards
   filters_applied <- character()
@@ -77,6 +82,51 @@ hanzi_filter <- function(args = character()) {
         )
       )
     filters_applied <- c(filters_applied, glue::glue("tag={tag_filter}"))
+  }
+
+  # Apply actor filter (mnemonic)
+  if (!is.null(actor_filter)) {
+    results <- results |>
+      dplyr::filter(
+        purrr::map_lgl(
+          .data$mnemonic,
+          function(m) {
+            !is.null(m) & !is.null(m$actor) &
+              grepl(actor_filter, m$actor, ignore.case = TRUE)
+          }
+        )
+      )
+    filters_applied <- c(filters_applied, glue::glue("actor={actor_filter}"))
+  }
+
+  # Apply set filter (mnemonic)
+  if (!is.null(set_filter)) {
+    results <- results |>
+      dplyr::filter(
+        purrr::map_lgl(
+          .data$mnemonic,
+          function(m) {
+            !is.null(m) & !is.null(m$set) &
+              grepl(set_filter, m$set, ignore.case = TRUE)
+          }
+        )
+      )
+    filters_applied <- c(filters_applied, glue::glue("set={set_filter}"))
+  }
+
+  # Apply room filter (mnemonic)
+  if (!is.null(room_filter)) {
+    results <- results |>
+      dplyr::filter(
+        purrr::map_lgl(
+          .data$mnemonic,
+          function(m) {
+            !is.null(m) & !is.null(m$room) &
+              grepl(room_filter, m$room, ignore.case = TRUE)
+          }
+        )
+      )
+    filters_applied <- c(filters_applied, glue::glue("room={room_filter}"))
   }
 
   # Check if any filters were applied

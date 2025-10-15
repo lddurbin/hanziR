@@ -52,6 +52,20 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
         sub_args <- if (length(remaining_args) > 1) remaining_args[-1] else character()
         do.call(hanzi_config, c(list(subcommand = subcommand), as.list(sub_args)))
       },
+      "actors" = {
+        show_usage <- "--usage" %in% remaining_args
+        hanzi_actors(show_usage = show_usage)
+      },
+      "sets" = {
+        show_usage <- "--usage" %in% remaining_args
+        hanzi_sets(show_usage = show_usage)
+      },
+      "props" = {
+        show_usage <- "--usage" %in% remaining_args
+        limit <- parse_option(remaining_args, "--limit")
+        if (!is.null(limit)) limit <- as.integer(limit)
+        hanzi_props(show_usage = show_usage, limit = limit)
+      },
       "stats" = hanzi_stats(),
       "validate" = hanzi_validate(),
       "--help" = show_help(),
@@ -91,6 +105,9 @@ show_help <- function() {
     "filter [options]" = "Filter cards by criteria",
     "export <format> [--out <dir>]" = "Export cards (md|csv|tsv)",
     "config <subcommand>" = "Manage mnemonic system config",
+    "actors [--usage]" = "List all actors in your system",
+    "sets [--usage]" = "List all sets in your system",
+    "props [--usage] [--limit N]" = "List all props in your system",
     "stats" = "Show collection statistics",
     "validate" = "Validate cards.yaml file"
   ))
@@ -109,7 +126,10 @@ show_help <- function() {
     "--final <value>" = "Filter by final vowel",
     "--tone <1-5>" = "Filter by tone number",
     "--component <char>" = "Filter by component",
-    "--tag <tag>" = "Filter by tag"
+    "--tag <tag>" = "Filter by tag",
+    "--actor <name>" = "Filter by mnemonic actor (partial match)",
+    "--set <name>" = "Filter by mnemonic set (partial match)",
+    "--room <name>" = "Filter by mnemonic room (partial match)"
   ))
   cli::cli_text("")
   cli::cli_h2("Examples:")
