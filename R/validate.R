@@ -83,6 +83,65 @@ hanzi_validate <- function() {
         warnings <- c(warnings, glue::glue("{card_id}: Missing tone"))
       }
 
+      # Mnemonic validation
+      if (!is.null(card$mnemonic) && length(card$mnemonic) > 0) {
+        # Load config if available
+        config <- tryCatch(read_config(), error = function(e) NULL)
+
+        if (!is.null(config)) {
+          mnemonic <- card$mnemonic
+
+          # Validate actor against config
+          if (!is.null(mnemonic$actor) && !is.null(card$initial)) {
+            config_actor <- get_actor(card$initial, config)
+            if (!is.null(config_actor) && mnemonic$actor != config_actor) {
+              warnings <- c(warnings, glue::glue(
+                "{card_id}: Mnemonic actor '{mnemonic$actor}' ",
+                "doesn't match config for initial '{card$initial}' ",
+                "(expected '{config_actor}')"
+              ))
+            }
+          }
+
+          # Validate set against config
+          if (!is.null(mnemonic$set) && !is.null(card$final)) {
+            config_set <- get_set(card$final, config)
+            if (!is.null(config_set) && mnemonic$set != config_set) {
+              warnings <- c(warnings, glue::glue(
+                "{card_id}: Mnemonic set '{mnemonic$set}' ",
+                "doesn't match config for final '{card$final}' ",
+                "(expected '{config_set}')"
+              ))
+            }
+          }
+
+          # Validate room against config
+          if (!is.null(mnemonic$room) && !is.null(card$tone)) {
+            config_room <- get_room(card$tone, config)
+            if (!is.null(config_room) && mnemonic$room != config_room) {
+              warnings <- c(warnings, glue::glue(
+                "{card_id}: Mnemonic room '{mnemonic$room}' ",
+                "doesn't match config for tone {card$tone} ",
+                "(expected '{config_room}')"
+              ))
+            }
+          }
+
+          # Warn if scene exists but no actor/set/room
+          if (!is.null(mnemonic$scene) && nchar(mnemonic$scene) > 0) {
+            if (is.null(mnemonic$actor)) {
+              warnings <- c(warnings, glue::glue("{card_id}: Mnemonic has scene but no actor"))
+            }
+            if (is.null(mnemonic$set)) {
+              warnings <- c(warnings, glue::glue("{card_id}: Mnemonic has scene but no set"))
+            }
+            if (is.null(mnemonic$room)) {
+              warnings <- c(warnings, glue::glue("{card_id}: Mnemonic has scene but no room"))
+            }
+          }
+        }
+      }
+
       # Optional field warnings
       if (is.null(card$example) || nchar(card$example) == 0) {
         # Don't warn about missing examples

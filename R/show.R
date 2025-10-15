@@ -28,6 +28,11 @@ hanzi_show <- function(char) {
   details <- list()
   details[["Meaning"]] <- card$meaning
 
+  # Show keyword if different from meaning
+  if (!is.na(card$keyword) && nchar(card$keyword) > 0 && card$keyword != card$meaning) {
+    details[["Keyword"]] <- card$keyword
+  }
+
   if (!is.na(card$initial) && nchar(card$initial) > 0) {
     details[["Initial"]] <- card$initial
   }
@@ -36,9 +41,23 @@ hanzi_show <- function(char) {
     details[["Final"]] <- card$final
   }
 
+  # Handle components (can be simple strings or objects with meanings)
   components <- card$components[[1]]
   if (length(components) > 0) {
-    details[["Components"]] <- paste(components, collapse = ", ")
+    comp_strings <- sapply(components, function(comp) {
+      if (is.character(comp)) {
+        comp
+      } else if (is.list(comp) && !is.null(comp$char)) {
+        if (!is.null(comp$meaning)) {
+          sprintf("%s (%s)", comp$char, comp$meaning)
+        } else {
+          comp$char
+        }
+      } else {
+        as.character(comp)
+      }
+    })
+    details[["Components"]] <- paste(comp_strings, collapse = ", ")
   }
 
   if (!is.na(card$example) && nchar(card$example) > 0) {
@@ -59,6 +78,38 @@ hanzi_show <- function(char) {
   }
 
   cli::cli_dl(details)
+
+  # Display mnemonic information if present
+  mnemonic <- card$mnemonic[[1]]
+  if (!is.null(mnemonic) && length(mnemonic) > 0) {
+    cli::cli_text("")
+    cli::cli_h2("\U0001F3AC Mnemonic")
+
+    mnemonic_details <- list()
+
+    if (!is.null(mnemonic$actor)) {
+      mnemonic_details[["Actor"]] <- sprintf("%s (%s)", mnemonic$actor, card$initial)
+    }
+
+    if (!is.null(mnemonic$set)) {
+      mnemonic_details[["Set"]] <- sprintf("%s (%s)", mnemonic$set, card$final)
+    }
+
+    if (!is.null(mnemonic$room)) {
+      mnemonic_details[["Room"]] <- sprintf("%s (Tone %s)", mnemonic$room, card$tone)
+    }
+
+    if (length(mnemonic_details) > 0) {
+      cli::cli_dl(mnemonic_details)
+    }
+
+    if (!is.null(mnemonic$scene) && nchar(mnemonic$scene) > 0) {
+      cli::cli_text("")
+      cli::cli_text("{.strong Scene:}")
+      cli::cli_text(mnemonic$scene)
+    }
+  }
+
   cli::cli_text("")
 
   invisible(NULL)

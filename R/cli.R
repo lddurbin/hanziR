@@ -26,6 +26,12 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
         }
         hanzi_show(remaining_args[1])
       },
+      "mnemonic" = {
+        if (length(remaining_args) == 0) {
+          cli::cli_abort("Usage: hanzi mnemonic <character>")
+        }
+        hanzi_mnemonic(remaining_args[1])
+      },
       "search" = {
         if (length(remaining_args) == 0) {
           cli::cli_abort("Usage: hanzi search <query...>")
@@ -80,6 +86,7 @@ show_help <- function() {
     "add" = "Add a new card interactively",
     "list" = "List all cards",
     "show <char>" = "Show detailed info for a character",
+    "mnemonic <char>" = "Show mnemonic info for a character",
     "search <query...>" = "Search cards (full-text)",
     "filter [options]" = "Filter cards by criteria",
     "export <format> [--out <dir>]" = "Export cards (md|csv|tsv)",

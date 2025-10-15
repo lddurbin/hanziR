@@ -55,8 +55,11 @@ hanzi add
 # List all cards
 hanzi list
 
-# Show details for a specific character
+# Show details for a specific character (includes mnemonic if present)
 hanzi show 好
+
+# Quick-view of just the mnemonic information
+hanzi mnemonic 好
 
 # Search across all fields
 hanzi search greeting
@@ -73,7 +76,7 @@ hanzi export tsv  # Anki-compatible
 # View statistics
 hanzi stats
 
-# Validate your cards.yaml
+# Validate your cards.yaml (includes mnemonic validation)
 hanzi validate
 ```
 
@@ -317,10 +320,12 @@ cards:
 - [x] Config validation
 - [x] Actor/set/room customization
 
-**Phase 3: Enhanced CRUD** 🚧 (Planned)
-- [ ] Interactive mnemonic prompts in `hanzi add`
-- [ ] Auto-populate from config based on pinyin
-- [ ] Enhanced `hanzi show` with mnemonic display
+**Phase 3: Enhanced CRUD** ✅ (Complete)
+- [x] Interactive mnemonic prompts in `hanzi add`
+- [x] Auto-populate from config based on pinyin
+- [x] Enhanced `hanzi show` with mnemonic display
+- [x] `hanzi mnemonic` quick-view command
+- [x] Validation for mnemonic fields
 
 **Phase 4+: Advanced Features** 📋 (Future)
 - [ ] Mnemonic-aware exports
