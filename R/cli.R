@@ -17,7 +17,10 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
   tryCatch({
     switch(
       command,
-      "init" = hanzi_init(),
+      "init" = {
+        minimal <- "--minimal" %in% remaining_args || "--empty" %in% remaining_args
+        hanzi_init(minimal = minimal)
+      },
       "add" = hanzi_add(),
       "list" = hanzi_list(),
       "show" = {
@@ -96,7 +99,7 @@ show_help <- function() {
   cli::cli_text("")
   cli::cli_h2("Commands:")
   cli::cli_dl(c(
-    "init" = "Initialize a new cards.yaml file",
+    "init [--minimal]" = "Initialize a new cards.yaml file",
     "add" = "Add a new card interactively",
     "list" = "List all cards",
     "show <char>" = "Show detailed info for a character",
@@ -133,7 +136,8 @@ show_help <- function() {
   ))
   cli::cli_text("")
   cli::cli_h2("Examples:")
-  cli::cli_code("hanzi init")
+  cli::cli_code("hanzi init                      # Initialize with example cards")
+  cli::cli_code("hanzi init --minimal            # Initialize with empty cards list")
   cli::cli_code("hanzi add")
   cli::cli_code("hanzi list")
   cli::cli_code("hanzi show <char>")

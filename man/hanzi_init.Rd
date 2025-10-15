@@ -4,16 +4,18 @@
 \alias{hanzi_init}
 \title{Initialize a new cards.yaml file}
 \usage{
-hanzi_init(path = NULL, force = FALSE)
+hanzi_init(path = NULL, force = FALSE, minimal = FALSE)
 }
 \arguments{
 \item{path}{Path where cards.yaml should be created. If NULL, uses default location.}
 
 \item{force}{If TRUE, overwrite existing file without prompting}
+
+\item{minimal}{If TRUE, create an empty cards list without example cards}
 }
 \value{
 Invisible path to created file
 }
 \description{
-Creates a new cards.yaml file with example cards and config.yaml
+Creates a new cards.yaml file (with or without example cards) and config.yaml
 }
