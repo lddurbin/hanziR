@@ -19,7 +19,8 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
       command,
       "init" = {
         minimal <- "--minimal" %in% remaining_args || "--empty" %in% remaining_args
-        hanzi_init(minimal = minimal)
+        force <- "--force" %in% remaining_args
+        hanzi_init(minimal = minimal, force = force)
       },
       "add" = hanzi_add(),
       "list" = hanzi_list(),
@@ -99,7 +100,7 @@ show_help <- function() {
   cli::cli_text("")
   cli::cli_h2("Commands:")
   cli::cli_dl(c(
-    "init [--minimal]" = "Initialize a new cards.yaml file",
+    "init [--minimal] [--force]" = "Initialize a new cards.yaml file",
     "add" = "Add a new card interactively",
     "list" = "List all cards",
     "show <char>" = "Show detailed info for a character",
@@ -138,6 +139,7 @@ show_help <- function() {
   cli::cli_h2("Examples:")
   cli::cli_code("hanzi init                      # Initialize with example cards")
   cli::cli_code("hanzi init --minimal            # Initialize with empty cards list")
+  cli::cli_code("hanzi init --force --minimal    # Force overwrite with minimal setup")
   cli::cli_code("hanzi add")
   cli::cli_code("hanzi list")
   cli::cli_code("hanzi show <char>")

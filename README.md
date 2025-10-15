@@ -238,11 +238,12 @@ Example output: "好 (hǎo) - Tone 3 (dip \\/)"
 
 ### Card Management
 
-#### `hanzi init [--minimal]`
+#### `hanzi init [--minimal] [--force]`
 Initialize new `cards.yaml` and `config.yaml` files with templates.
 
 Options:
 - `--minimal` or `--empty`: Create an empty cards list without example cards, and a minimal config with empty actors, sets, and props (start from scratch)
+- `--force`: Overwrite existing files without prompting (useful for starting over)
 
 #### `hanzi add`
 Interactively add a new card with prompts for all fields, including optional mnemonic information (actor, set, room, scene).
