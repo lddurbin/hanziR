@@ -30,6 +30,8 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
         # Check for flags
         tone <- NULL
         pinyin <- NULL
+        initial <- NULL
+        final <- NULL
         meaning <- NULL
         interactive <- "--interactive" %in% remaining_args || "-i" %in% remaining_args
 
@@ -45,6 +47,18 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
           pinyin <- remaining_args[pinyin_idx + 1]
         }
 
+        # Parse --initial flag
+        initial_idx <- which(remaining_args == "--initial")
+        if (length(initial_idx) > 0 && length(remaining_args) > initial_idx) {
+          initial <- remaining_args[initial_idx + 1]
+        }
+
+        # Parse --final flag
+        final_idx <- which(remaining_args == "--final")
+        if (length(final_idx) > 0 && length(remaining_args) > final_idx) {
+          final <- remaining_args[final_idx + 1]
+        }
+
         # Parse --meaning flag
         meaning_idx <- which(remaining_args == "--meaning")
         if (length(meaning_idx) > 0 && length(remaining_args) > meaning_idx) {
@@ -55,6 +69,8 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
           char = char,
           tone = tone,
           pinyin = pinyin,
+          initial = initial,
+          final = final,
           meaning = meaning,
           interactive = interactive
         )

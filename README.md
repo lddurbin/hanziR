@@ -261,16 +261,21 @@ Interactively add a new card with prompts for all fields, including optional mne
 #### `hanzi edit <char> [options]`
 Edit an existing card. Can be used with specific flags for quick updates or interactively.
 
+**Mnemonic Auto-Update**: When you change `--tone`, `--initial`, or `--final`, the corresponding mnemonic fields (room, actor, set) are automatically updated based on your config!
+
 Options:
-- `--tone <1-5>`: Update the tone (also updates tone_shape and tone_pattern)
+- `--tone <1-5>`: Update the tone (also updates tone_shape, tone_pattern, and mnemonic room)
+- `--initial <value>`: Update the initial consonant (also updates mnemonic actor)
+- `--final <value>`: Update the final vowel (also updates mnemonic set)
 - `--pinyin <value>`: Update the pinyin
 - `--meaning <value>`: Update the meaning
 - `-i` or `--interactive`: Edit all fields interactively
 
 Examples:
 ```bash
-hanzi edit 个 --tone 2              # Quick tone update
-hanzi edit 十 --pinyin shí          # Update pinyin
+hanzi edit 个 --tone 2              # Updates tone AND mnemonic room
+hanzi edit 十 --initial zh          # Updates initial AND mnemonic actor
+hanzi edit 好 --final ou            # Updates final AND mnemonic set
 hanzi edit 好 -i                    # Interactive mode - edit all fields
 ```
 

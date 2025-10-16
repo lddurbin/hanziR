@@ -1,10 +1,13 @@
 #' Edit an existing card
 #'
 #' Updates a card's properties. Can be used interactively or with command-line flags.
+#' When tone, initial, or final are updated, corresponding mnemonic fields are also updated.
 #'
 #' @param char Character to edit
-#' @param tone New tone (1-5)
+#' @param tone New tone (1-5) - also updates mnemonic room
 #' @param pinyin New pinyin
+#' @param initial New initial consonant - also updates mnemonic actor
+#' @param final New final vowel - also updates mnemonic set
 #' @param meaning New meaning
 #' @param example New example
 #' @param tags New tags (comma-separated string)
@@ -12,9 +15,9 @@
 #' @param interactive If TRUE, prompt for all fields interactively
 #' @return Invisible NULL
 #' @export
-hanzi_edit <- function(char = NULL, tone = NULL, pinyin = NULL, meaning = NULL,
-                       example = NULL, tags = NULL, notes = NULL,
-                       interactive = FALSE) {
+hanzi_edit <- function(char = NULL, tone = NULL, pinyin = NULL, initial = NULL,
+                       final = NULL, meaning = NULL, example = NULL, tags = NULL,
+                       notes = NULL, interactive = FALSE) {
   # Load cards
   data <- tryCatch(
     read_cards(),
@@ -22,6 +25,9 @@ hanzi_edit <- function(char = NULL, tone = NULL, pinyin = NULL, meaning = NULL,
       cli::cli_abort("No cards file found. Run 'hanzi init' first.")
     }
   )
+
+  # Load config for mnemonic updates
+  config <- tryCatch(read_config(), error = function(e) NULL)
 
   # Get character if not provided
   if (is.null(char) || nchar(trimws(char)) == 0) {
@@ -128,6 +134,46 @@ hanzi_edit <- function(char = NULL, tone = NULL, pinyin = NULL, meaning = NULL,
     card$tone <- as.integer(tone)
     card$tone_shape <- get_tone_shape(tone)
     card$tone_pattern <- get_tone_pattern(tone)
+
+    # Update mnemonic room if card has mnemonic
+    if (!is.null(card$mnemonic) && !is.null(config)) {
+      new_room <- get_room(tone, config)
+      if (!is.null(new_room)) {
+        card$mnemonic$room <- new_room
+        cli::cli_alert_info("Updated mnemonic room to: {.val {new_room}}")
+      }
+    }
+
+    updated <- TRUE
+  }
+
+  if (!is.null(initial)) {
+    card$initial <- initial
+
+    # Update mnemonic actor if card has mnemonic
+    if (!is.null(card$mnemonic) && !is.null(config)) {
+      new_actor <- get_actor(initial, config)
+      if (!is.null(new_actor)) {
+        card$mnemonic$actor <- new_actor
+        cli::cli_alert_info("Updated mnemonic actor to: {.val {new_actor}}")
+      }
+    }
+
+    updated <- TRUE
+  }
+
+  if (!is.null(final)) {
+    card$final <- final
+
+    # Update mnemonic set if card has mnemonic
+    if (!is.null(card$mnemonic) && !is.null(config)) {
+      new_set <- get_set(final, config)
+      if (!is.null(new_set)) {
+        card$mnemonic$set <- new_set
+        cli::cli_alert_info("Updated mnemonic set to: {.val {new_set}}")
+      }
+    }
+
     updated <- TRUE
   }
 

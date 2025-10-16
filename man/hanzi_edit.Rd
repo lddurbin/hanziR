@@ -8,6 +8,8 @@ hanzi_edit(
   char = NULL,
   tone = NULL,
   pinyin = NULL,
+  initial = NULL,
+  final = NULL,
   meaning = NULL,
   example = NULL,
   tags = NULL,
@@ -18,9 +20,13 @@ hanzi_edit(
 \arguments{
 \item{char}{Character to edit}
 
-\item{tone}{New tone (1-5)}
+\item{tone}{New tone (1-5) - also updates mnemonic room}
 
 \item{pinyin}{New pinyin}
+
+\item{initial}{New initial consonant - also updates mnemonic actor}
+
+\item{final}{New final vowel - also updates mnemonic set}
 
 \item{meaning}{New meaning}
 
@@ -37,4 +43,5 @@ Invisible NULL
 }
 \description{
 Updates a card's properties. Can be used interactively or with command-line flags.
+When tone, initial, or final are updated, corresponding mnemonic fields are also updated.
 }
