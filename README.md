@@ -431,6 +431,16 @@ cards:
 
 This is a personal learning tool project. Suggestions and feedback welcome!
 
+## Acknowledgments
+
+The **Hanzi Movie Method** mnemonic system implemented in this package is based on the methodology created by [Mandarin Blueprint](https://www.mandarinblueprint.com/). Their innovative approach to learning Chinese characters through memorable mental "movies" has been transformative for countless learners.
+
+This package is a personal implementation tool designed to support users of the Mandarin Blueprint method. The tone terminology (singing, unsure, zombie, assertive, contrarian) and the core mnemonic framework (actors, sets, rooms, props, scenes) are all part of their system.
+
+**Thank you to Mandarin Blueprint** for creating such an effective and memorable learning methodology! 🙏
+
+Visit their website to learn more: https://www.mandarinblueprint.com/
+
 ## License
 
 MIT License - See LICENSE file for details
