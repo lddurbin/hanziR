@@ -28,14 +28,21 @@ hanzi_mnemonic <- function(char) {
 
   # Display header
   cli::cli_text("")
-  cli::cli_rule(
-    left = glue::glue("\U0001F3AC {card$char} ({card$pinyin})"),
-    right = if (!is.na(card$keyword)) card$keyword else card$meaning
-  )
+  cli::cli_rule(glue::glue("\U0001F3AC {card$char} ({card$pinyin})"))
   cli::cli_text("")
 
   # Display mnemonic components
   mnemonic_details <- list()
+
+  # Show keyword/meaning first
+  keyword_or_meaning <- if (!is.na(card$keyword) && nchar(card$keyword) > 0) {
+    card$keyword
+  } else {
+    card$meaning
+  }
+  if (!is.na(keyword_or_meaning) && nchar(keyword_or_meaning) > 0) {
+    mnemonic_details[["\U0001F3AF Keyword"]] <- keyword_or_meaning
+  }
 
   if (!is.null(mnemonic$actor)) {
     mnemonic_details[["\U0001F3AD Actor"]] <- sprintf(
