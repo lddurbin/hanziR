@@ -17,7 +17,6 @@
 - 📊 **Multiple exports**: Markdown, CSV, and Anki TSV formats
 - 🔍 **Powerful filtering**: Search by initial, final, tone, component, or tag
 - 📈 **Statistics**: Track your collection and progress
-- 🔄 **Backward Compatible**: v1.0 cards work seamlessly with v2.0 mnemonic features
 
 ## Installation
 
@@ -93,7 +92,7 @@ hanzi validate
 
 ## Hanzi Movie Method (Mnemonic System)
 
-`hanziR` v2.0+ supports the **Hanzi Movie Method** from Mandarin Blueprint, a powerful mnemonic technique for memorizing Chinese characters using mental "movies."
+`hanziR` supports the **Hanzi Movie Method** from Mandarin Blueprint, a powerful mnemonic technique for memorizing Chinese characters using mental "movies."
 
 ### Configuration Commands
 
@@ -200,13 +199,6 @@ get_set("ao", config)    # "Mountain Cabin"
 get_room(3, config)      # "Bedroom"
 get_prop("女", config)   # "Woman"
 ```
-
-### Backward Compatibility
-
-- ✅ All mnemonic fields are **optional**
-- ✅ v1.0 cards work perfectly without modification
-- ✅ Add mnemonic info gradually as you learn
-- ✅ Mix v1.0 and v2.0 cards in the same file
 
 ### Exports Include Mnemonic Data
 
@@ -345,9 +337,7 @@ List all props (component meanings). Use `--usage` for card counts, `--limit N` 
 
 ## Data Structure
 
-### v2.0 Format (with optional mnemonic fields)
-
-Cards are stored in `cards.yaml`:
+Cards are stored in `cards.yaml` with optional mnemonic fields:
 
 ```yaml
 version: "2.0"
@@ -372,10 +362,10 @@ cards:
     # Enhanced components - supports both formats:
     components:
       - char: "女"
-        meaning: "Woman"  # v2.0: object with meaning
+        meaning: "Woman"  # Object with meaning
       - char: "子"
         meaning: "Child"
-    # OR simple format: components: ["女", "子"]  # v1.0 still works!
+    # OR simple format: components: ["女", "子"]  # Both formats work!
     
     # Mnemonic system (completely optional)
     mnemonic:
@@ -386,27 +376,6 @@ cards:
         Hugh Jackman walks into the bedroom of my mountain cabin,
         holding a woman and child by the hand. He smiles warmly and
         says "This is GOOD - family is what matters most."
-```
-
-### v1.0 Format (still fully supported)
-
-```yaml
-version: "1.0"
-created: "2025-10-14"
-cards:
-  - char: "好"
-    pinyin: "hǎo"
-    tone: 3
-    tone_shape: "dip"
-    tone_pattern: "\\/"
-    initial: "h"
-    final: "ao"
-    components: ["女", "子"]
-    meaning: "good, well"
-    example: "你好 (nǐ hǎo) - hello"
-    tags: ["HSK1", "common", "greeting"]
-    notes: "One of the most common characters"
-    added: "2025-10-14T10:30:00Z"
 ```
 
 ## Development Status
@@ -425,13 +394,12 @@ cards:
 
 ### Hanzi Movie Method Integration
 
-**Phase 1: Core Data Structure ✅ (v2.0)**
+**Phase 1: Core Data Structure** ✅
 - [x] Configuration system (`config.yaml`)
 - [x] Enhanced card schema with mnemonic fields
 - [x] Flexible component format (strings or objects)
-- [x] Backward compatibility with v1.0 cards
 - [x] Config utility functions (`get_actor`, `get_set`, `get_room`, `get_prop`)
-- [x] Comprehensive test coverage (62 tests passing)
+- [x] Comprehensive test coverage
 - [x] R CMD check: 0 errors, 0 warnings, 0 notes
 
 **Phase 2: Configuration Management** ✅ (Complete)
