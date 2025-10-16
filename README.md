@@ -57,6 +57,10 @@ hanzi add
 #   Final: Ø  (null final for characters like shí, sì)
 #   This maps to: Actor (sh-), Set (Ø), Room (tone 2)
 
+# Edit an existing card
+hanzi edit 个 --tone 2  # Quick update
+hanzi edit 十 -i        # Interactive mode
+
 # List all cards
 hanzi list
 
@@ -253,6 +257,22 @@ Options:
 Interactively add a new card with prompts for all fields, including optional mnemonic information (actor, set, room, scene).
 
 **Note on Finals**: For characters with no final vowel (like 十 shí, 四 sì), enter `Ø` for the null final, which maps to your designated null final set (default: "Childhood Home").
+
+#### `hanzi edit <char> [options]`
+Edit an existing card. Can be used with specific flags for quick updates or interactively.
+
+Options:
+- `--tone <1-5>`: Update the tone (also updates tone_shape and tone_pattern)
+- `--pinyin <value>`: Update the pinyin
+- `--meaning <value>`: Update the meaning
+- `-i` or `--interactive`: Edit all fields interactively
+
+Examples:
+```bash
+hanzi edit 个 --tone 2              # Quick tone update
+hanzi edit 十 --pinyin shí          # Update pinyin
+hanzi edit 好 -i                    # Interactive mode - edit all fields
+```
 
 #### `hanzi list`
 Display all cards in a compact table format.

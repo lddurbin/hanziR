@@ -23,6 +23,42 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
         hanzi_init(minimal = minimal, force = force)
       },
       "add" = hanzi_add(),
+      "edit" = {
+        # Parse character and flags
+        char <- if (length(remaining_args) > 0) remaining_args[1] else NULL
+
+        # Check for flags
+        tone <- NULL
+        pinyin <- NULL
+        meaning <- NULL
+        interactive <- "--interactive" %in% remaining_args || "-i" %in% remaining_args
+
+        # Parse --tone flag
+        tone_idx <- which(remaining_args == "--tone")
+        if (length(tone_idx) > 0 && length(remaining_args) > tone_idx) {
+          tone <- as.integer(remaining_args[tone_idx + 1])
+        }
+
+        # Parse --pinyin flag
+        pinyin_idx <- which(remaining_args == "--pinyin")
+        if (length(pinyin_idx) > 0 && length(remaining_args) > pinyin_idx) {
+          pinyin <- remaining_args[pinyin_idx + 1]
+        }
+
+        # Parse --meaning flag
+        meaning_idx <- which(remaining_args == "--meaning")
+        if (length(meaning_idx) > 0 && length(remaining_args) > meaning_idx) {
+          meaning <- remaining_args[meaning_idx + 1]
+        }
+
+        hanzi_edit(
+          char = char,
+          tone = tone,
+          pinyin = pinyin,
+          meaning = meaning,
+          interactive = interactive
+        )
+      },
       "list" = hanzi_list(),
       "show" = {
         if (length(remaining_args) == 0) {
@@ -102,6 +138,7 @@ show_help <- function() {
   cli::cli_dl(c(
     "init [--minimal] [--force]" = "Initialize a new cards.yaml file",
     "add" = "Add a new card interactively",
+    "edit <char> [--tone N] [--pinyin X]" = "Edit an existing card",
     "list" = "List all cards",
     "show <char>" = "Show detailed info for a character",
     "mnemonic <char>" = "Show mnemonic info for a character",
@@ -141,6 +178,8 @@ show_help <- function() {
   cli::cli_code("hanzi init --minimal            # Initialize with empty cards list")
   cli::cli_code("hanzi init --force --minimal    # Force overwrite with minimal setup")
   cli::cli_code("hanzi add")
+  cli::cli_code("hanzi edit \u4e2a --tone 2         # Update tone for character")
+  cli::cli_code("hanzi edit \u5341 -i                # Edit interactively")
   cli::cli_code("hanzi list")
   cli::cli_code("hanzi show <char>")
   cli::cli_code("hanzi search greeting")
