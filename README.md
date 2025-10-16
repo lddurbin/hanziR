@@ -222,17 +222,17 @@ All export formats now include mnemonic information:
 
 ## Accessible Tone System
 
-Mandarin Chinese has 5 tones. To ensure accessibility for color-blind users, each tone is represented with:
+Mandarin Chinese has 5 tones. To ensure accessibility for color-blind users, each tone is represented with Mandarin Blueprint's memorable terminology:
 
-| Tone | Name    | Shape   | Pattern | Description        |
-|------|---------|---------|---------|---------------------|
-| 1    | First   | flat    | `---`   | High level         |
-| 2    | Second  | rise    | `/`     | Rising             |
-| 3    | Third   | dip     | `\/`    | Dip then rise      |
-| 4    | Fourth  | fall    | `\`     | Falling            |
-| 5    | Neutral | neutral | `.`     | Light/neutral tone |
+| Tone | Name        | Pattern | Description        |
+|------|-------------|---------|---------------------|
+| 1    | singing     | `---`   | High level         |
+| 2    | unsure      | `/`     | Rising             |
+| 3    | zombie      | `\/`    | Dip then rise      |
+| 4    | assertive   | `\`     | Falling            |
+| 5    | contrarian  | `.`     | Light/neutral tone |
 
-Example output: "好 (hǎo) - Tone 3 (dip \\/)"
+Example output: "好 (hǎo) - Tone 3 (zombie \\/)"
 
 ## Commands
 
