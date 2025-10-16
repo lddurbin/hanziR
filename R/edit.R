@@ -9,6 +9,7 @@
 #' @param initial New initial consonant - also updates mnemonic actor
 #' @param final New final vowel - also updates mnemonic set
 #' @param meaning New meaning
+#' @param keyword New keyword (for mnemonics)
 #' @param example New example
 #' @param tags New tags (comma-separated string)
 #' @param notes New notes
@@ -16,8 +17,8 @@
 #' @return Invisible NULL
 #' @export
 hanzi_edit <- function(char = NULL, tone = NULL, pinyin = NULL, initial = NULL,
-                       final = NULL, meaning = NULL, example = NULL, tags = NULL,
-                       notes = NULL, interactive = FALSE) {
+                       final = NULL, meaning = NULL, keyword = NULL, example = NULL,
+                       tags = NULL, notes = NULL, interactive = FALSE) {
   # Load cards
   data <- tryCatch(
     read_cards(),
@@ -85,6 +86,13 @@ hanzi_edit <- function(char = NULL, tone = NULL, pinyin = NULL, initial = NULL,
     meaning_input <- read_line(meaning_prompt)
     if (nchar(trimws(meaning_input)) > 0) {
       meaning <- trimws(meaning_input)
+    }
+
+    # Keyword
+    keyword_prompt <- sprintf("Keyword [%s]: ", card$keyword %||% "")
+    keyword_input <- read_line(keyword_prompt)
+    if (nchar(trimws(keyword_input)) > 0) {
+      keyword <- trimws(keyword_input)
     }
 
     # Example
@@ -179,6 +187,11 @@ hanzi_edit <- function(char = NULL, tone = NULL, pinyin = NULL, initial = NULL,
 
   if (!is.null(meaning)) {
     card$meaning <- meaning
+    updated <- TRUE
+  }
+
+  if (!is.null(keyword)) {
+    card$keyword <- if (nchar(keyword) > 0) keyword else NA_character_
     updated <- TRUE
   }
 

@@ -65,6 +65,13 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
           meaning <- remaining_args[meaning_idx + 1]
         }
 
+        # Parse --keyword flag
+        keyword <- NULL
+        keyword_idx <- which(remaining_args == "--keyword")
+        if (length(keyword_idx) > 0 && length(remaining_args) > keyword_idx) {
+          keyword <- remaining_args[keyword_idx + 1]
+        }
+
         hanzi_edit(
           char = char,
           tone = tone,
@@ -72,6 +79,7 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
           initial = initial,
           final = final,
           meaning = meaning,
+          keyword = keyword,
           interactive = interactive
         )
       },

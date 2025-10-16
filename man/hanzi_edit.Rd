@@ -11,6 +11,7 @@ hanzi_edit(
   initial = NULL,
   final = NULL,
   meaning = NULL,
+  keyword = NULL,
   example = NULL,
   tags = NULL,
   notes = NULL,
@@ -29,6 +30,8 @@ hanzi_edit(
 \item{final}{New final vowel - also updates mnemonic set}
 
 \item{meaning}{New meaning}
+
+\item{keyword}{New keyword (for mnemonics)}
 
 \item{example}{New example}
 
