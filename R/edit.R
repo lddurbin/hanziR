@@ -13,12 +13,18 @@
 #' @param example New example
 #' @param tags New tags (comma-separated string)
 #' @param notes New notes
+#' @param mnemonic_actor New mnemonic actor (overrides auto-update from initial)
+#' @param mnemonic_set New mnemonic set (overrides auto-update from final)
+#' @param mnemonic_room New mnemonic room (overrides auto-update from tone)
+#' @param mnemonic_scene New mnemonic scene
 #' @param interactive If TRUE, prompt for all fields interactively
 #' @return Invisible NULL
 #' @export
 hanzi_edit <- function(char = NULL, tone = NULL, pinyin = NULL, initial = NULL,
                        final = NULL, meaning = NULL, keyword = NULL, example = NULL,
-                       tags = NULL, notes = NULL, interactive = FALSE) {
+                       tags = NULL, notes = NULL, mnemonic_actor = NULL,
+                       mnemonic_set = NULL, mnemonic_room = NULL, mnemonic_scene = NULL,
+                       interactive = FALSE) {
   # Load cards
   data <- tryCatch(
     read_cards(),
@@ -212,6 +218,31 @@ hanzi_edit <- function(char = NULL, tone = NULL, pinyin = NULL, initial = NULL,
 
   if (!is.null(notes)) {
     card$notes <- if (nchar(notes) > 0) notes else NA_character_
+    updated <- TRUE
+  }
+
+  # Update mnemonic fields (these override auto-updates from tone/initial/final)
+  if (!is.null(mnemonic_actor)) {
+    if (is.null(card$mnemonic)) card$mnemonic <- list()
+    card$mnemonic$actor <- mnemonic_actor
+    updated <- TRUE
+  }
+
+  if (!is.null(mnemonic_set)) {
+    if (is.null(card$mnemonic)) card$mnemonic <- list()
+    card$mnemonic$set <- mnemonic_set
+    updated <- TRUE
+  }
+
+  if (!is.null(mnemonic_room)) {
+    if (is.null(card$mnemonic)) card$mnemonic <- list()
+    card$mnemonic$room <- mnemonic_room
+    updated <- TRUE
+  }
+
+  if (!is.null(mnemonic_scene)) {
+    if (is.null(card$mnemonic)) card$mnemonic <- list()
+    card$mnemonic$scene <- mnemonic_scene
     updated <- TRUE
   }
 

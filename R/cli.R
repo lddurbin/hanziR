@@ -72,6 +72,32 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
           keyword <- remaining_args[keyword_idx + 1]
         }
 
+        # Parse mnemonic flags
+        mnemonic_actor <- NULL
+        mnemonic_set <- NULL
+        mnemonic_room <- NULL
+        mnemonic_scene <- NULL
+
+        actor_idx <- which(remaining_args == "--mnemonic-actor")
+        if (length(actor_idx) > 0 && length(remaining_args) > actor_idx) {
+          mnemonic_actor <- remaining_args[actor_idx + 1]
+        }
+
+        set_idx <- which(remaining_args == "--mnemonic-set")
+        if (length(set_idx) > 0 && length(remaining_args) > set_idx) {
+          mnemonic_set <- remaining_args[set_idx + 1]
+        }
+
+        room_idx <- which(remaining_args == "--mnemonic-room")
+        if (length(room_idx) > 0 && length(remaining_args) > room_idx) {
+          mnemonic_room <- remaining_args[room_idx + 1]
+        }
+
+        scene_idx <- which(remaining_args == "--mnemonic-scene")
+        if (length(scene_idx) > 0 && length(remaining_args) > scene_idx) {
+          mnemonic_scene <- remaining_args[scene_idx + 1]
+        }
+
         hanzi_edit(
           char = char,
           tone = tone,
@@ -80,6 +106,10 @@ hanzi_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
           final = final,
           meaning = meaning,
           keyword = keyword,
+          mnemonic_actor = mnemonic_actor,
+          mnemonic_set = mnemonic_set,
+          mnemonic_room = mnemonic_room,
+          mnemonic_scene = mnemonic_scene,
           interactive = interactive
         )
       },

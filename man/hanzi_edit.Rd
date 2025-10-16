@@ -15,6 +15,10 @@ hanzi_edit(
   example = NULL,
   tags = NULL,
   notes = NULL,
+  mnemonic_actor = NULL,
+  mnemonic_set = NULL,
+  mnemonic_room = NULL,
+  mnemonic_scene = NULL,
   interactive = FALSE
 )
 }
@@ -38,6 +42,14 @@ hanzi_edit(
 \item{tags}{New tags (comma-separated string)}
 
 \item{notes}{New notes}
+
+\item{mnemonic_actor}{New mnemonic actor (overrides auto-update from initial)}
+
+\item{mnemonic_set}{New mnemonic set (overrides auto-update from final)}
+
+\item{mnemonic_room}{New mnemonic room (overrides auto-update from tone)}
+
+\item{mnemonic_scene}{New mnemonic scene}
 
 \item{interactive}{If TRUE, prompt for all fields interactively}
 }
